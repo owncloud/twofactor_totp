@@ -100,6 +100,18 @@ class SettingsController extends Controller {
 		];
 	}
 
+	/**
+	 * @NoAdminRequired
+	 * @param string $challenge
+	 * @return JSONResponse
+	 */
+	public function verifyNewSecret($challenge) {
+		$user = $this->userSession->getUser();
+		return [
+			'verified' => $this->totp->validateSecret($user, $challenge)
+		];
+	}
+
 	private function getSecretName() {
 		$userName = $this->userSession->getUser()->getCloudId();
 		return rawurldecode($userName);
