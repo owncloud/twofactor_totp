@@ -2,6 +2,7 @@
 
 /**
  * @author Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author Semih Serhat Karakaya <karakayasemi@itu.edu.tr>
  *
  * Two-factor TOTP
  *
@@ -30,16 +31,21 @@ use OCP\AppFramework\Db\Entity;
  * @method void setSecret(string $secret)
  * @method boolean getVerified()
  * @method void setVerified(bool $verified)
+ * @method string getLastValidatedKey()
+ * @method void setLastValidatedKey(string $key)
  */
 class TotpSecret extends Entity {
 
-    /** @var string */
-    protected $userId;
+	/** @var string */
+	protected $userId;
 
-    /** @var string */
-    protected $secret;
+	/** @var string */
+	protected $secret;
 
-    /** @var boolean */
-    protected $verified;
+	/** @var string */
+	protected $lastValidatedKey;
+
+	/** @var boolean */
+	protected $verified;
 
 }
