@@ -92,6 +92,7 @@ class TwoFactorTOTPContext implements Context {
 	 * Returns secret code extracted from QRCode
 	 *
 	 * @return string
+	 * @throws \Exception
 	 */
 	public function getSecretCodeFromQRCode() {
 		$path = \tempnam(\sys_get_temp_dir(), 'totp_qrcode');
@@ -99,7 +100,18 @@ class TwoFactorTOTPContext implements Context {
 		$file = \fopen($path, 'wb');
 		\fwrite($file, \base64_decode($data[1]));
 		$qrCode = new QrReader($path);
-		\preg_match('/secret=(?P<secret>[A-Z0-9]{16})/', $qrCode->text(), $matches);
+		$qrText = $qrCode->text();
+		$preg_result = \preg_match('/secret=(?P<secret>[A-Z0-9]{16})/', $qrText, $matches);
+		if (!$preg_result) {
+			throw new \Exception(
+				'Error matching secret in QR Code: ' . $qrText
+			);
+		}
+		if (!\array_key_exists('secret', $matches)) {
+			throw new \Exception(
+				'Error secret not found in QR Code: ' . $qrText
+			);
+		}
 		return $matches['secret'];
 	}
 
