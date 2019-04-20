@@ -115,6 +115,11 @@ class PersonalSecuritySettingsPageWithTOTPEnabled extends PersonalSecuritySettin
 			$verificationMsg,
 			__METHOD__ . ' The verification msg could not be found'
 		);
-		return ($verificationMsg->getText() === 'Verified');
+		$msg = $verificationMsg->getText();
+		if ($msg !== 'Verified') {
+			echo "UI key verify message is '$msg'\n";
+		}
+
+		return ($msg === 'Verified');
 	}
 }
