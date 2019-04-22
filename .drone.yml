@@ -96,6 +96,7 @@ pipeline:
     environment:
       - TEST_SERVER_URL=http://owncloud
       - BEHAT_SUITE=${BEHAT_SUITE}
+      - NORERUN=true
     commands:
       - make test-acceptance-cli
     when:
@@ -112,6 +113,7 @@ pipeline:
       - TEST_SERVER_URL=http://owncloud
       - PLATFORM=Linux
       - BEHAT_SUITE=${BEHAT_SUITE}
+      - NORERUN=true
     commands:
       - make test-acceptance-webui
     when:
