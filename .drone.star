@@ -57,6 +57,9 @@ config = {
 				'chrome',
 				'firefox'
 			],
+			'phpVersions': [
+				'7.4',
+			],
 		},
 		# Note: the API and CLI tests need webUI steps for their setup, so they look like webUI suites
 		'webUIother': {
@@ -64,6 +67,9 @@ config = {
 				'webUIapiTwoFactorTOTP': 'webUIapiTOTP',
 				'webUIcliTwoFactorTOTP': 'webUIcliTOTP'
 			},
+			'phpVersions': [
+				'7.4',
+			],
 		},
 		'webUI-PHP7.3': {
 			'suites': {
@@ -118,7 +124,7 @@ config = {
 				}
 			],
 			'phpVersions': [
-				'7.3'
+				'7.4'
 			],
 		}
 	},
@@ -1244,7 +1250,7 @@ def installCore(version, db, useBundledApp):
 		'image': 'owncloudci/core',
 		'pull': 'always',
 		'settings': {
-			'version': version,
+			'git_reference': 'php7.4-20200310',
 			'core_path': '/var/www/owncloud/server',
 			'db_type': dbType,
 			'db_name': database,
