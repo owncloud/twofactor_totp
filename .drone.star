@@ -16,6 +16,7 @@ config = {
 			'phpVersions': [
 				'7.2',
 				'7.3',
+				'7.4',
 			],
 		},
 	},
@@ -40,6 +41,7 @@ config = {
 		'reducedDatabases' : {
 			'phpVersions': [
 				'7.3',
+				'7.4',
 			],
 			'databases': [
 				'mysql:5.5',
@@ -81,6 +83,21 @@ config = {
 				'7.3'
 			],
 		},
+		'webUI-PHP7.4': {
+			'suites': {
+				'webUITwoFactorTOTP': 'webUITwoFactTOTP',
+			},
+			'browsers': [
+				'chrome',
+				'firefox'
+			],
+			'servers': [
+				'daily-master-qa',
+			],
+			'phpVersions': [
+				'7.4'
+			],
+		},
 		# Note: the API and CLI tests need webUI steps for their setup, so they look like webUI suites
 		'webUIother-PHP7.3': {
 			'suites': {
@@ -93,6 +110,18 @@ config = {
 			],
 			'phpVersions': [
 				'7.3'
+			],
+		},
+		'webUIother-PHP7.4': {
+			'suites': {
+				'webUIapiTwoFactorTOTP': 'webUIapiTOTP',
+				'webUIcliTwoFactorTOTP': 'webUIcliTOTP'
+			},
+			'servers': [
+				'daily-master-qa',
+			],
+			'phpVersions': [
+				'7.4'
 			],
 		},
 		'webUI-encryption': {
@@ -354,7 +383,7 @@ def phan():
 		return pipelines
 
 	default = {
-		'phpVersions': ['7.2', '7.3'],
+		'phpVersions': ['7.2', '7.3', '7.4'],
 	}
 
 	if 'defaults' in config:
@@ -605,7 +634,7 @@ def phptests(testType):
 	errorFound = False
 
 	default = {
-		'phpVersions': ['7.2', '7.3'],
+		'phpVersions': ['7.2', '7.3', '7.4'],
 		'databases': [
 			'sqlite', 'mariadb:10.2', 'mysql:5.5', 'mysql:5.7', 'postgres:9.4', 'oracle'
 		],
