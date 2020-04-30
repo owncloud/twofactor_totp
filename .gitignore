@@ -11,6 +11,7 @@ vendor-bin/**/composer.lock
 # Tests - auto-generated files
 /tests/acceptance/output*
 tests/output
+.phpunit.result.cache
 
 # Ignore NetBeans project
 /nbproject/
