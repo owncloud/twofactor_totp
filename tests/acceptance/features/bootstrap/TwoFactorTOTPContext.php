@@ -98,6 +98,7 @@ class TwoFactorTOTPContext implements Context {
 		$otp = new Otp();
 		if ($this->timeCounter === null) {
 			$this->timeCounter = \floor(\time() / 30);
+			echo "timecounter:" . $this->timeCounter;
 		} else {
 			$this->timeCounter += 1;
 		}
@@ -107,6 +108,7 @@ class TwoFactorTOTPContext implements Context {
 				'Key used more than three times'
 			);
 		}
+		echo "secret:" . $this->getSecret();
 		return $otp->totp(Base32::decode($this->getSecret()), $this->timeCounter);
 	}
 	/**

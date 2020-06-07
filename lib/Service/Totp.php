@@ -119,6 +119,8 @@ class Totp implements ITotp {
 		 */
 		if ($dbSecret->getLastValidatedKey() !== $key) {
 			$secret = $this->crypto->decrypt($dbSecret->getSecret());
+			\OCP\Util::writeLog('totp', "secret:" . $secret, 2);
+			\OCP\Util::writeLog('totp', "time:" . \floor(\time() / 30), 2);
 			if ($this->otp->checkTotp(Base32::decode($secret), (int)$key, 3) === true) {
 				$dbSecret->setLastValidatedKey($key);
 				$this->secretMapper->update($dbSecret);
