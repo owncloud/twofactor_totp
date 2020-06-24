@@ -25,8 +25,6 @@ class Version20200624075210 implements ISchemaMigration {
 			$table->addColumn('secret', 'text', [
 				'notnull' => true,
 			]);
-			$table->setPrimaryKey(['id']);
-			$table->addUniqueIndex(['user_id'], 'totp_secrets_user_id');
 		}
 		$table = $schema->getTable("{$prefix}twofactor_totp_secrets");
 		if (!$table->hasColumn('verified')) {
@@ -40,6 +38,10 @@ class Version20200624075210 implements ISchemaMigration {
 				'length' => 32,
 				'default' => '',
 			]);
+		}
+		if ($table->hasPrimaryKey()) {
+			$table->dropPrimaryKey();
+			$table->setPrimaryKey(['id'], 'oc_twofactor_totp_secrets_PK');
 		}
 	}
 }
