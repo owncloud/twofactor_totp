@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- Set owncloud min-version to 10.5
 - Support PHP 7.4 - [#175](https://github.com/owncloud/twofactor_totp/issues/175)
 - Bump libraries
 
