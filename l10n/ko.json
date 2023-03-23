@@ -7,6 +7,7 @@
     "Verify" : "확인",
     "Verified" : "확인됨",
     "Not verified" : "확인되지 않음",
+    "Time-based One-time Password" : "시간 기반 일회용 암호",
     "Authenticate with a TOTP app" : "TOTP 앱으로 인증",
     "TOTP Second-factor Auth" : "TOTP 2단계 인증"
 },"pluralForm" :"nplurals=1; plural=0;"
