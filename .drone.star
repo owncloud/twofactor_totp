@@ -91,7 +91,6 @@ config = {
                     "commands": [
                         "cd %s" % dir["server"],
                         "php occ encryption:enable",
-                        "php occ encryption:select-encryption-type masterkey --yes",
                         "php occ config:list",
                     ],
                 },
