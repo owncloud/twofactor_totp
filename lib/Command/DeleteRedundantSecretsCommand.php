@@ -57,9 +57,9 @@ class DeleteRedundantSecretsCommand extends Command {
 	 * @param OutputInterface $output
 	 * @return int
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$secrets = $this->secretMapper->getAllSecrets();
-		$count=0;
+		$count = 0;
 		foreach ($secrets as $secret) {
 			$userId = $secret['user_id'];
 			if (!$this->userManager->userExists($userId)) {

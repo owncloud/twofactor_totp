@@ -77,7 +77,7 @@ class SetSecretVerificationStatusCommand extends Command {
 	 * @param OutputInterface $output
 	 * @return int
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		try {
 			$options = $this->parseInput($input);
 		} catch (InvalidArgumentException $e) {
