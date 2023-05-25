@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - xxxx-xx-xx
+## [0.7.5] - 2023-05-25
+
+### Fixed
+
+- [QA] missing dependency on php-imagick - [#261](https://github.com/owncloud/twofactor_totp/issues/261)
+- Dependencies updated
 
 ## [0.7.4] - 2022-01-14
 
@@ -116,7 +121,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.7.4...master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...master
+[0.7.5]: https://github.com/owncloud/twofactor_totp/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/owncloud/twofactor_totp/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/owncloud/twofactor_totp/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/owncloud/twofactor_totp/compare/v0.7.1...v0.7.2
