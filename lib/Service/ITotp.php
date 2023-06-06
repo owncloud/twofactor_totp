@@ -27,7 +27,6 @@ use OCA\TwoFactor_Totp\Exception\TotpSecretAlreadySet;
 use OCP\IUser;
 
 interface ITotp {
-
 	/**
 	 * @param IUser $user
 	 */

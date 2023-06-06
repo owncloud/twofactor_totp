@@ -30,7 +30,6 @@ use Test\TestCase;
  * Class TotpTest
  */
 class TotpProviderTest extends TestCase {
-
 	/** @var ITotp | \PHPUnit\Framework\MockObject\MockObject  $totp */
 	private $totp;
 

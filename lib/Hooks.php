@@ -31,7 +31,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  * @package OCA\TwoFactor_Totp
  */
 class Hooks {
-
 	/**
 	 * @var EventDispatcherInterface $eventDispatcher
 	 */

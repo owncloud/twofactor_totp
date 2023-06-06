@@ -33,7 +33,6 @@ use Otp\Otp;
 use ParagonIE\ConstantTime\Encoding;
 
 class Totp implements ITotp {
-
 	/** @var TotpSecretMapper */
 	private $secretMapper;
 

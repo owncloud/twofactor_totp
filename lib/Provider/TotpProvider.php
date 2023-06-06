@@ -29,7 +29,6 @@ use OCP\IUser;
 use OCP\Template;
 
 class TotpProvider implements IProvider {
-
 	/** @var ITotp */
 	private $totp;
 

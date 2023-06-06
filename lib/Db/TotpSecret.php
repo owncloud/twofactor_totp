@@ -35,7 +35,6 @@ use OCP\AppFramework\Db\Entity;
  * @method void setLastValidatedKey(string $lastValidatedKey)
  */
 class TotpSecret extends Entity {
-
 	/** @var string */
 	protected $userId;
 

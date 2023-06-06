@@ -31,7 +31,6 @@ use Test\TestCase;
  * @package OCA\Twofactor_Totp\Tests
  */
 class HooksTest extends TestCase {
-
 	/**
 	 * @var Hooks $hooks
 	 */
