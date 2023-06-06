@@ -31,7 +31,6 @@ use \OCP\IUserManager;
 use OCA\TwoFactor_Totp\Service\ITotp;
 
 class TotpApiController extends OCSController {
-
 	/** @var ITotp */
 	private $totp;
 

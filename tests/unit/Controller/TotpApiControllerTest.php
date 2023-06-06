@@ -33,7 +33,6 @@ use OCP\IUserManager;
 use Test\TestCase;
 
 class TotpApiControllerTest extends TestCase {
-
 	/** @var IRequest | PHPUnit\Framework\MockObject\MockObject */
 	private $request;
 

@@ -13,7 +13,7 @@
     "bacon/bacon-qr-code": "^2.0"
   },
   "require-dev": {
-    "bamarni/composer-bin-plugin": "^1.4",
+    "bamarni/composer-bin-plugin": "^1.8",
     "khanamiryan/qrcode-detector-decoder": "^1.0.4"
   },
   "extra": {

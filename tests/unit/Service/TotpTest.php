@@ -35,7 +35,6 @@ use Test\TestCase;
  * Class TotpTest
  */
 class TotpTest extends TestCase {
-
 	/** @var TotpSecretMapper | \PHPUnit\Framework\MockObject\MockObject */
 	private $secretMapper;
 
