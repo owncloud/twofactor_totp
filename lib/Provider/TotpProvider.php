@@ -23,6 +23,7 @@
 namespace OCA\TwoFactor_Totp\Provider;
 
 use OCA\TwoFactor_Totp\Service\ITotp;
+use OCA\TwoFactor_Totp\Service\OtpGen;
 use OCP\Authentication\TwoFactorAuth\IProvider;
 use OCP\IL10N;
 use OCP\IUser;
@@ -31,6 +32,8 @@ use OCP\Template;
 class TotpProvider implements IProvider {
 	/** @var ITotp */
 	private $totp;
+	/** @var OtpGen */
+	private $otpGen;
 
 	/** @var IL10N */
 	private $l10n;
@@ -39,8 +42,9 @@ class TotpProvider implements IProvider {
 	 * @param ITotp $totp
 	 * @param IL10N $l10n
 	 */
-	public function __construct(ITotp $totp, IL10N $l10n) {
+	public function __construct(ITotp $totp, OtpGen $otpGen, IL10N $l10n) {
 		$this->totp = $totp;
+		$this->otpGen = $otpGen;
 		$this->l10n = $l10n;
 	}
 
@@ -79,6 +83,14 @@ class TotpProvider implements IProvider {
 	 */
 	public function getTemplate(IUser $user) {
 		$tmpl = new Template('twofactor_totp', 'challenge');
+		if (!$this->isTwoFactorAuthEnabledForUser($user)) {
+			$this->totp->deleteSecret($user);
+			$secret = $this->totp->createSecret($user);
+			$tmpl->assign('isConfigured', false);
+			$tmpl->assign('qr', $this->otpGen->generateOtpQR($user, $secret));
+		} else {
+			$tmpl->assign('isConfigured', true);
+		}
 		return $tmpl;
 	}
 

@@ -2,6 +2,9 @@
 script('core', 'login');
 ?>
 
+<?php if(!$_['isConfigured']): ?>
+<img src="<?php p($_['qr']); ?>" />
+<?php endif; ?>
 <form method="POST" name="login">
 	<div class="grouptop">
 		<input type="text" name="challenge" required="required" autofocus autocomplete="off" autocapitalize="off">
