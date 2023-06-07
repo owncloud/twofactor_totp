@@ -3,7 +3,10 @@ script('core', 'login');
 ?>
 
 <?php if(!$_['isConfigured']): ?>
-<img src="<?php p($_['qr']); ?>" />
+<div class="grouptop" style="align-items:center;">
+	<p class="info"><?php p($l->t('Scan the QR code below with you TOTP app and enter the code')); ?></p>
+	<img src="<?php p($_['qr']); ?>" />
+</div>
 <?php endif; ?>
 <form method="POST" name="login">
 	<div class="grouptop">
