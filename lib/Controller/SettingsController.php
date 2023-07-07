@@ -21,13 +21,9 @@
 
 namespace OCA\TwoFactor_Totp\Controller;
 
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
 use OCA\TwoFactor_Totp\Service\ITotp;
+use OCA\TwoFactor_Totp\Service\OtpGen;
 use OCP\AppFramework\Controller;
-use OCP\Defaults;
 use OCP\IRequest;
 use OCP\IUserSession;
 
@@ -38,21 +34,27 @@ class SettingsController extends Controller {
 	/** @var IUserSession */
 	private $userSession;
 
-	/** @var Defaults */
-	private $defaults;
+	/** @var OtpGen */
+	private $otpGen;
 
 	/**
 	 * @param string $appName
 	 * @param IRequest $request
 	 * @param IUserSession $userSession
 	 * @param ITotp $totp
-	 * @param Defaults $defaults
+	 * @param OtpGen $otpGen
 	 */
-	public function __construct($appName, IRequest $request, IUserSession $userSession, ITotp $totp, Defaults $defaults) {
+	public function __construct(
+		$appName,
+		IRequest $request,
+		IUserSession $userSession,
+		ITotp $totp,
+		OtpGen $otpGen
+	) {
 		parent::__construct($appName, $request);
 		$this->userSession = $userSession;
 		$this->totp = $totp;
-		$this->defaults = $defaults;
+		$this->otpGen = $otpGen;
 	}
 
 	/**
@@ -79,7 +81,7 @@ class SettingsController extends Controller {
 			return [
 				'enabled' => true,
 				'secret' => $secret,
-				'qr' => $this->generateBase64EncodedQrImage($secret)
+				'qr' => $this->otpGen->generateOtpQR($this->userSession->getUser(), $secret),
 			];
 		}
 
@@ -99,44 +101,5 @@ class SettingsController extends Controller {
 		return [
 			'verified' => $this->totp->verifySecret($user, $challenge)
 		];
-	}
-
-	/**
-	 * The user's cloud id, e.g. "christina@university.domain/owncloud"
-	 *
-	 * @return string
-	 */
-	private function getSecretName() {
-		$productName = $this->defaults->getName();
-		$userName = $this->userSession->getUser()->getCloudId();
-		return \rawurlencode("$productName:$userName");
-	}
-
-	/**
-	 * The issuer, e.g. "Nextcloud" or "ownCloud"
-	 *
-	 * @return string
-	 */
-	private function getSecretIssuer() {
-		$productName = $this->defaults->getName();
-		return \rawurlencode($productName);
-	}
-
-	/**
-	 * Generate base64 encoded png image
-	 *
-	 * @param string $secret
-	 * @return string
-	 */
-	private function generateBase64EncodedQrImage($secret) {
-		$secretName = $this->getSecretName();
-		$issuer = $this->getSecretIssuer();
-		$data = "otpauth://totp/$secretName?secret=$secret&issuer=$issuer";
-		$renderer = new ImageRenderer(
-			new RendererStyle(170),
-			new ImagickImageBackEnd()
-		);
-		$writer = new Writer($renderer);
-		return 'data:image/png;base64,' . \base64_encode($writer->writeString($data));
 	}
 }

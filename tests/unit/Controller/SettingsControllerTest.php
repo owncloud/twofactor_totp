@@ -22,14 +22,14 @@
 namespace OCA\TwoFactor_Totp\Unit\Controller;
 
 use OCA\TwoFactor_Totp\Controller\SettingsController;
-use OCP\Defaults;
+use OCA\TwoFactor_Totp\Service\OtpGen;
 use Test\TestCase;
 
 class SettingsControllerTest extends TestCase {
 	private $request;
 	private $userSession;
 	private $totp;
-	private $defaults;
+	private $otpGen;
 
 	/** @var SettingsController */
 	private $controller;
@@ -40,9 +40,9 @@ class SettingsControllerTest extends TestCase {
 		$this->request = $this->createMock('\OCP\IRequest');
 		$this->userSession = $this->createMock('\OCP\IUserSession');
 		$this->totp = $this->createMock('\OCA\TwoFactor_Totp\Service\ITotp');
-		$this->defaults = new Defaults();
+		$this->otpGen = $this->createMock(OtpGen::class);
 
-		$this->controller = new SettingsController('twofactor_totp', $this->request, $this->userSession, $this->totp, $this->defaults);
+		$this->controller = new SettingsController('twofactor_totp', $this->request, $this->userSession, $this->totp, $this->otpGen);
 	}
 
 	/**
@@ -93,11 +93,13 @@ class SettingsControllerTest extends TestCase {
 			->method('createSecret')
 			->with($user)
 			->will($this->returnValue('newsecret'));
+		$this->otpGen->method('generateOtpQR')
+			->willReturn('data:image/png;base64,abc123def456');
 
 		$expected = [
 			'enabled' => true,
 			'secret' => 'newsecret',
-			'qr' => $this->invokePrivate($this->controller, 'generateBase64EncodedQrImage', ['newsecret'])
+			'qr' => 'data:image/png;base64,abc123def456',
 		];
 
 		$this->assertEquals($expected, $this->controller->enable(true));

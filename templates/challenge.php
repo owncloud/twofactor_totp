@@ -2,6 +2,12 @@
 script('core', 'login');
 ?>
 
+<?php if(!$_['isConfigured']): ?>
+<div class="grouptop" style="align-items:center;">
+	<p class="info"><?php p($l->t('Scan the QR code below with you TOTP app and enter the code')); ?></p>
+	<img src="<?php p($_['qr']); ?>" />
+</div>
+<?php endif; ?>
 <form method="POST" name="login">
 	<div class="grouptop">
 		<input type="text" name="challenge" required="required" autofocus autocomplete="off" autocapitalize="off">

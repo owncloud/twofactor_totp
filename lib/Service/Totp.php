@@ -120,6 +120,14 @@ class Totp implements ITotp {
 			$secret = $this->crypto->decrypt($dbSecret->getSecret());
 			/* @phan-suppress-next-line PhanRedefinedClassReference */
 			if ($this->otp->checkTotp(Encoding::base32DecodeUpper($secret), $key, 3) === true) {
+				if ($dbSecret->getVerified() !== true) {
+					// If the 2-factor is enforced, the secret might not be verified
+					// yet because it could come from the challenge page. The user
+					// can't verify the secret and must enter the code directly.
+					// At this point, the challenge has been verified, so we mark
+					// the secret as verified.
+					$dbSecret->setVerified(true);
+				}
 				$dbSecret->setLastValidatedKey($key);
 				$this->secretMapper->update($dbSecret);
 				return true;

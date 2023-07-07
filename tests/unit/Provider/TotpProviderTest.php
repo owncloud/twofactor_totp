@@ -22,6 +22,7 @@ namespace OCA\TwoFactor_Totp\Tests\Provider;
 
 use OCA\TwoFactor_Totp\Provider\TotpProvider;
 use OCA\TwoFactor_Totp\Service\ITotp;
+use OCA\TwoFactor_Totp\Service\OtpGen;
 use OCP\IL10N;
 use OCP\IUser;
 use Test\TestCase;
@@ -32,6 +33,8 @@ use Test\TestCase;
 class TotpProviderTest extends TestCase {
 	/** @var ITotp | \PHPUnit\Framework\MockObject\MockObject  $totp */
 	private $totp;
+	/** @var OtpGen */
+	private $otpGen;
 
 	/** @var IL10N | \PHPUnit\Framework\MockObject\MockObject */
 	private $l;
@@ -46,10 +49,11 @@ class TotpProviderTest extends TestCase {
 		parent::setUp();
 
 		$this->totp = $this->createMock(ITotp::class);
+		$this->otpGen = $this->createMock(OtpGen::class);
 		$this->l = $this->createMock(IL10N::class);
 		$this->user = $this->createMock(IUser::class);
 
-		$this->totpProvider = new TotpProvider($this->totp, $this->l);
+		$this->totpProvider = new TotpProvider($this->totp, $this->otpGen, $this->l);
 	}
 
 	public function testVerifyChallange() {
