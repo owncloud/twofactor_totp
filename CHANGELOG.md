@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased] - XXXXXXX
+## [0.8.0] - 2023-07-12
 
+### Added
+
+- [#292](https://github.com/owncloud/twofactor_totp/pull/292) - Show qr on challenge page if not configured for the user
 
 ## [0.7.5] - 2023-05-25
 
 ### Fixed
 
+- Always return an int from Symfony Command execute method - [#288](https://github.com/owncloud/twofactor_totp/pull/288)
 - [QA] missing dependency on php-imagick - [#261](https://github.com/owncloud/twofactor_totp/issues/261)
 - Dependencies updated
 
