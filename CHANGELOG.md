@@ -6,9 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [0.8.0] - 2023-07-12
 
-### Added
+### Changed
 
 - [#292](https://github.com/owncloud/twofactor_totp/pull/292) - Show qr on challenge page if not configured for the user
+- Minimum core version 10.11, minimum php version 7.4
 
 ## [0.7.5] - 2023-05-25
 
@@ -128,7 +129,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.8.0...master
+[0.8.0]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/owncloud/twofactor_totp/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/owncloud/twofactor_totp/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/owncloud/twofactor_totp/compare/v0.7.2...v0.7.3
