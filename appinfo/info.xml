@@ -7,7 +7,7 @@
 This extension provides the most simple way to add a second factor to user logins. More sophisticated 2-Factor Authentication mechanisms with additional authentication devices is available via the [PrivacyIDEA ownCloud App](https://marketplace.owncloud.com/apps/twofactor_privacyidea) or by integrating other Identity Providers that offer multi-factor authenication mechanisms.</description>
 	<licence>AGPL</licence>
 	<author>ownCloud GmbH, Christoph Wurst, Semih Serhat Karakaya</author>
-	<version>0.7.5</version>
+	<version>0.8.0</version>
 	<namespace>TwoFactor_Totp</namespace>
 	<category>security</category>
 	<documentation>
@@ -29,8 +29,8 @@ This extension provides the most simple way to add a second factor to user login
 	</commands>
 
 	<dependencies>
-		<owncloud min-version="10.2" max-version="10" />
-		<php min-version="7.1" max-version="7.4" />
+                <owncloud min-version="10.11" max-version="10" />
+                <php min-version="7.4" />
 		<lib>imagick</lib>
 	</dependencies>
 </info>
