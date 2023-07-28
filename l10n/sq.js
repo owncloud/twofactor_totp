@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "S’u verifikua",
     "Time-based One-time Password" : "Fjalëkalim Vetëm-për-një-herë Bazuar-në-kohë",
     "Authenticate with a TOTP app" : "Mirëfilltësimin kryejeni me një aplikacion TOTP",
+    "Scan the QR code below with you TOTP app and enter the code" : "Skanoni kodin QR më poshtë me aplikacionin tuaj TOTP dhe jepeni kodin",
     "TOTP Second-factor Auth" : "TOTP Second-factor Auth"
 },
 "nplurals=2; plural=(n != 1);");
