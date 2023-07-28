@@ -4,7 +4,7 @@ script('core', 'login');
 
 <?php if(!$_['isConfigured']): ?>
 <div class="grouptop" style="align-items:center;">
-	<p class="info"><?php p($l->t('Scan the QR code below with you TOTP app and enter the code')); ?></p>
+	<p class="info"><?php p($l->t('Scan the QR code below with your TOTP app and enter the code')); ?></p>
 	<img src="<?php p($_['qr']); ?>" />
 </div>
 <?php endif; ?>
