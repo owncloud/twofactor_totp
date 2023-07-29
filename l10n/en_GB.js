@@ -11,7 +11,6 @@ OC.L10N.register(
     "Not verified" : "Not verified",
     "Time-based One-time Password" : "Time-based One-time Password",
     "Authenticate with a TOTP app" : "Authenticate with a TOTP app",
-    "Scan the QR code below with you TOTP app and enter the code" : "Scan the QR code below with you TOTP app and enter the code",
     "TOTP Second-factor Auth" : "TOTP Second-factor Auth"
 },
 "nplurals=2; plural=(n != 1);");
