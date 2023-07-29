@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "This is your new TOTP secret:" : "Acesta este noua ta cheie secretă TOTP:",
     "Scan this QR code with your TOTP app" : "Scanează acest cod QR cu aplicația ta TOTP",
+    "Verify" : "Verifica",
     "Authenticate with a TOTP app" : "Autentifică-te cu o aplicație TOTP",
     "TOTP Second-factor Auth" : "Factor secund de autentificare TOTP"
 },
