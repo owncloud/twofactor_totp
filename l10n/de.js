@@ -11,7 +11,7 @@ OC.L10N.register(
     "Not verified" : "Nicht bestätigt",
     "Time-based One-time Password" : "Zeitgesteuertes Einmalpasswort",
     "Authenticate with a TOTP app" : "Mit einer TOTP-App (zeitgesteuertes Einmalpasswort) authentifizieren",
-    "Scan the QR code below with your TOTP app and enter the code" : "Scanne den QR-Code unten mit Deiner TOTP-App und gib den Code ein.",
+    "Scan the QR code below with your TOTP app and enter the code" : "Scanne den QR-Code unten mit deiner TOTP-App und gib den Code ein.",
     "TOTP Second-factor Auth" : "TOTP-Zweifaktorauthentifizierung"
 },
 "nplurals=2; plural=(n != 1);");
