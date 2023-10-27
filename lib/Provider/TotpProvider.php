@@ -83,6 +83,12 @@ class TotpProvider implements IProvider {
 	 * @return Template
 	 */
 	public function getTemplate(IUser $user) {
+		// If 2-factor is enforced, the challenge page will be accessed
+		// regardless of the user having configured the app or not.
+		// If the user doesn't have the app configured, we need to show
+		// the QR so the user is able to configured the app from the
+		// challenge page. The QR won't be shown if the app is already
+		// configured
 		$tmpl = new Template('twofactor_totp', 'challenge');
 		try {
 			$secretInfo = $this->totp->getSecretInfo($user);
