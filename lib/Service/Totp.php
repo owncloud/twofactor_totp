@@ -87,6 +87,17 @@ class Totp implements ITotp {
 	}
 
 	/**
+	 * @inheritDoc
+	 */
+	public function getSecretInfo(IUser $user) {
+		$totpSecret = $this->secretMapper->getSecret($user);
+		return [
+			'secret' => $this->crypto->decrypt($totpSecret->getSecret()),
+			'verified' => $totpSecret->getVerified(),
+		];
+	}
+
+	/**
 	 * @param IUser $user
 	 * @param string $key
 	 */

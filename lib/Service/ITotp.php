@@ -24,6 +24,7 @@ namespace OCA\TwoFactor_Totp\Service;
 
 use OCA\TwoFactor_Totp\Exception\NoTotpSecretFoundException;
 use OCA\TwoFactor_Totp\Exception\TotpSecretAlreadySet;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IUser;
 
 interface ITotp {
@@ -43,6 +44,17 @@ interface ITotp {
 	 * @param IUser $user
 	 */
 	public function deleteSecret(IUser $user);
+
+	/**
+	 * Get the information about the user's secret (if saved)
+	 * The information returned is an array with the following keys:
+	 * - 'secret' -> the secret saved
+	 * - 'verified' -> whether the secret has been verified by the client
+	 * @param IUser $user
+	 * @return array an array with the information explained above
+	 * @throws DoesNotExistException if there is no secret for the user
+	 */
+	public function getSecretInfo(IUser $user);
 
 	/**
 	 * @param IUser $user

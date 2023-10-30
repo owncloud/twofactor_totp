@@ -25,6 +25,7 @@ namespace OCA\TwoFactor_Totp\Provider;
 use OCA\TwoFactor_Totp\Service\ITotp;
 use OCA\TwoFactor_Totp\Service\OtpGen;
 use OCP\Authentication\TwoFactorAuth\IProvider;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IL10N;
 use OCP\IUser;
 use OCP\Template;
@@ -82,16 +83,24 @@ class TotpProvider implements IProvider {
 	 * @return Template
 	 */
 	public function getTemplate(IUser $user) {
+		// If 2-factor is enforced, the challenge page will be accessed
+		// regardless of the user having configured the app or not.
+		// If the user doesn't have the app configured, we need to show
+		// the QR so the user is able to configured the app from the
+		// challenge page. The QR won't be shown if the app is already
+		// configured
 		$tmpl = new Template('twofactor_totp', 'challenge');
-		if (!$this->isTwoFactorAuthEnabledForUser($user)) {
-			// If 2-factor is enforced, the challenge page will be accessed
-			// regardless of the user having configured the app or not.
-			// If the user doesn't have the app configured, we need to show
-			// the QR so the user is able to configured the app from the
-			// challenge page. The QR won't be shown if the app is already
-			// configured
-			$this->totp->deleteSecret($user);
+		try {
+			$secretInfo = $this->totp->getSecretInfo($user);
+			$secret = $secretInfo['secret'];
+			$verified = $secretInfo['verified'];
+		} catch (DoesNotExistException $ex) {
+			// create a new secret if the user doesn't have one
 			$secret = $this->totp->createSecret($user);
+			$verified = false;
+		}
+
+		if (!$verified) {
 			$tmpl->assign('isConfigured', false);
 			$tmpl->assign('qr', $this->otpGen->generateOtpQR($user, $secret));
 		} else {
