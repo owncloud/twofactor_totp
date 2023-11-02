@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+
+## [Unreleased]
+
+
+
 ## [0.8.1] - 2023-11-02
 
 - [#305](https://github.com/owncloud/twofactor_totp/pull/305) - Fix problem with enforced 2fa and encryption 
