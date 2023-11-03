@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+
+## [Unreleased]
+
+
+
+## [0.8.1] - 2023-11-02
+
+- [#305](https://github.com/owncloud/twofactor_totp/pull/305) - Fix problem with enforced 2fa and encryption 
+
+
 ## [0.8.0] - 2023-07-27
 
 ### Changed
@@ -129,7 +139,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.8.0...master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.8.1...master
+[0.8.1]: https://github.com/owncloud/twofactor_totp/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/owncloud/twofactor_totp/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/owncloud/twofactor_totp/compare/v0.7.3...v0.7.4
