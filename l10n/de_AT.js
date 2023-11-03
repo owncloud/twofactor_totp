@@ -1,15 +1,17 @@
-{ "translations": {
+OC.L10N.register(
+    "twofactor_totp",
+    {
     "Activate TOTP" : "TOTP (zeitgesteuertes Einmalpasswort) aktivieren",
     "This is your new TOTP secret:" : "Dies ist Ihr neuer TOTP-Schlüssel:",
     "Scan this QR code with your TOTP app" : "Scannen Sie diesen QR-Code mit Ihrer TOTP-App",
     "To enable second-factor verify authentication code below." : "Zur Aktivierung des zweiten Faktors, bestätige den Authentifizierungscode unten.",
     "Authentication code" : "Authentifizierungscode",
     "Verify" : "Überprüfen",
-    "Verified" : "Geprüft",
-    "Not verified" : "Nicht geprüft",
+    "Verified" : "Bestätigt",
+    "Not verified" : "Nicht bestätigt",
     "Time-based One-time Password" : "Zeitgesteuertes Einmalpasswort",
     "Authenticate with a TOTP app" : "Mit einer TOTP-App (zeitgesteuertes Einmalpasswort) authentisieren",
     "Scan the QR code below with your TOTP app and enter the code" : "Scannen Sie den QR-Code unten mit Ihrer TOTP-App und geben Sie den Code ein.",
-    "TOTP Second-factor Auth" : "TOTP-Zweifaktorauthentifizierung"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
-}
+    "TOTP Second-factor Auth" : "TOTP Zwei-Faktor-Authentifizierung"
+},
+"nplurals=2; plural=(n != 1);");
