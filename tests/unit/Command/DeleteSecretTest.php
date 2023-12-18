@@ -89,23 +89,8 @@ class DeleteSecretTest extends TestCase {
 	}
 
 	public function testCommandAllUsers() {
-		$user1 = $this->createMock(IUser::class);
-		$user1->method('getUID')->willReturn('user1');
-		$user2 = $this->createMock(IUser::class);
-		$user2->method('getUID')->willReturn('user2');
-		$user3 = $this->createMock(IUser::class);
-		$user3->method('getUID')->willReturn('user3');
-		$allUsers = [$user1, $user2, $user3];
-
-		$this->userManager->method('callForSeenUsers')
-			->will($this->returnCallback(function ($callback) use ($allUsers) {
-				foreach ($allUsers as $user) {
-					$callback($user);
-				}
-			}));
-
-		$this->mapper->expects($this->exactly(3))
-			->method('deleteSecretsByUserId');
+		$this->mapper->expects($this->once())
+			->method('deleteAllSecrets');
 
 		$this->commandTester->execute(['--all' => null]);
 		$this->assertSame(0, $this->commandTester->getStatusCode());

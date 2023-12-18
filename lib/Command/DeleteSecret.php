@@ -20,8 +20,6 @@
 namespace OCA\TwoFactor_Totp\Command;
 
 use OCA\TwoFactor_Totp\Db\TotpSecretMapper;
-use OCP\IUserManager;
-use OCP\IUser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,13 +30,9 @@ class DeleteSecret extends Command {
 	/** @var TotpSecretMapper */
 	private $secretMapper;
 
-	/** @var IUserManager */
-	private $userManager;
-
-	public function __construct(TotpSecretMapper $secretMapper, IUserManager $userManager) {
+	public function __construct(TotpSecretMapper $secretMapper) {
 		parent::__construct();
 		$this->secretMapper = $secretMapper;
-		$this->userManager = $userManager;
 	}
 
 	protected function configure() {
@@ -65,12 +59,12 @@ class DeleteSecret extends Command {
 
 		if (!empty($uids)) {
 			foreach ($uids as $uid) {
-				$this->secretMapper->deleteSecretsByUserId($uid);
+				$secretCount = $this->secretMapper->deleteSecretsByUserId($uid);
+				$output->writeln("{$secretCount} secrets deleted for {$uid}");
 			}
 		} else {
-			$this->userManager->callForSeenUsers(function (IUser $user) {
-				$this->secretMapper->deleteSecretsByUserId($user->getUID());
-			});
+			$secretCount = $this->secretMapper->deleteAllSecrets();
+			$output->writeln("{$secretCount} secrets deleted");
 		}
 		return 0;
 	}
