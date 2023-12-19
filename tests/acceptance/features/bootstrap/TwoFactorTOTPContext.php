@@ -43,11 +43,6 @@ class TwoFactorTOTPContext implements Context {
 	private $personalSecuritySettingsPage;
 
 	/**
-	 * @var bool
-	 */
-	private $totpUsed = false;
-
-	/**
 	 * @var string|null
 	 */
 	private $totpSecret;
@@ -176,18 +171,9 @@ class TwoFactorTOTPContext implements Context {
 	 * @return void
 	 */
 	public function theUserAddsVerificationKeyFromSecretKeyToVerifyUsingWebUI(): void {
-		if (!$this->totpUsed) {
-			$this->personalSecuritySettingsPage->addVerificationKey(
-				$this->generateTOTPKey()
-			);
-			$this->totpUsed = true;
-		} else {
-			throw new \Exception(
-				'TOTP Already used.' .
-				'Key generation multiple times is not supported ' .
-				'due to the possibility of same key generation.'
-			);
-		}
+		$this->personalSecuritySettingsPage->addVerificationKey(
+			$this->generateTOTPKey()
+		);
 	}
 
 	/**

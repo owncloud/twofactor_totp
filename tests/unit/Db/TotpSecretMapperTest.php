@@ -110,7 +110,7 @@ class TotpSecretMapperTest extends TestCase {
 		$secret = $this->mapper->getSecret($user);
 		$this->assertEquals($user->getUID(), $secret->getUserId());
 
-		$this->mapper->deleteSecretsByUserId('user1');
+		$this->assertSame(1, $this->mapper->deleteSecretsByUserId('user1'));
 		$this->mapper->getSecret($user);
 	}
 
@@ -124,5 +124,12 @@ class TotpSecretMapperTest extends TestCase {
 		]));
 		$secrets2 = $this->mapper->getAllSecrets();
 		$this->assertCount(2, $secrets2);
+	}
+
+	public function testDeleteAllSecrets() {
+		// only 1 existing secret in the DB, which will be deleted
+		$this->assertSame(1, $this->mapper->deleteAllSecrets());
+		// no secrets in the DB
+		$this->assertSame(0, $this->mapper->deleteAllSecrets());
 	}
 }

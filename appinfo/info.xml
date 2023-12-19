@@ -26,6 +26,7 @@ This extension provides the most simple way to add a second factor to user login
 	<commands>
 		<command>OCA\TwoFactor_Totp\Command\SetSecretVerificationStatusCommand</command>
 		<command>OCA\TwoFactor_Totp\Command\DeleteRedundantSecretsCommand</command>
+		<command>OCA\TwoFactor_Totp\Command\DeleteSecret</command>
 	</commands>
 
 	<dependencies>

@@ -70,12 +70,23 @@ class TotpSecretMapper extends Mapper {
 
 	/**
 	 * @param string $uid
+	 * @return int the number of deleted secrets
 	 */
 	public function deleteSecretsByUserId($uid) {
 		$qb = $this->db->getQueryBuilder();
-		$qb->delete('twofactor_totp_secrets')
+		return $qb->delete('twofactor_totp_secrets')
 			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($uid)))
 			->execute();
+	}
+
+	/**
+	 * Remove all the secrets from all the users
+	 *
+	 * @return int the number of deleted secrets
+	 */
+	public function deleteAllSecrets() {
+		$qb = $this->db->getQueryBuilder();
+		return $qb->delete('twofactor_totp_secrets')->execute();
 	}
 
 	public function getAllSecrets() {
