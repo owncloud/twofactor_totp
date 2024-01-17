@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - xxxx-xx-xx
 
-## [Unreleased]
+## [0.9.0] - 2024-01-09
 
+- [#311](https://github.com/owncloud/twofactor_totp/pull/311) - feat: allow occ admin to delete user's secrets
 
 
 ## [0.8.1] - 2023-11-02
@@ -139,7 +141,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.8.1...master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.9.0...master
+[0.9.0]: https://github.com/owncloud/twofactor_totp/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/owncloud/twofactor_totp/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/owncloud/twofactor_totp/compare/v0.7.4...v0.7.5
