@@ -4,11 +4,14 @@ OC.L10N.register(
     "Activate TOTP" : "TOTP activeren",
     "This is your new TOTP secret:" : "Dit is uw nieuwe TOTP geheim:",
     "Scan this QR code with your TOTP app" : "Scan deze QR code met uw TOTP app",
+    "To enable second-factor verify authentication code below." : "Om de authenticatiecode met tweede factor in te schakelen, wordt de onderstaande verificatiecode gecontroleerd.",
     "Authentication code" : "Autenticatiecode",
     "Verify" : "Verifieer",
     "Verified" : "Geverifieerd",
     "Not verified" : "Niet geverifieerd",
+    "Time-based One-time Password" : "Op tijd gebaseerd eenmalig wachtwoord",
     "Authenticate with a TOTP app" : "Authenticeren met een TOTP app",
+    "Scan the QR code below with your TOTP app and enter the code" : "Scan onderstaande QR-code met je TOTP-app en voer de code in",
     "TOTP Second-factor Auth" : "TOTP tweede factor Auth"
 },
 "nplurals=2; plural=(n != 1);");
