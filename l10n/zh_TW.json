@@ -7,6 +7,7 @@
     "Verify" : "驗證",
     "Verified" : "已驗證",
     "Not verified" : "未驗證",
+    "Time-based One-time Password" : "基于时间的一次性密码",
     "Authenticate with a TOTP app" : "使用與TOTP軟體進行身份驗證",
     "TOTP Second-factor Auth" : "TOTP二級驗證"
 },"pluralForm" :"nplurals=1; plural=0;"
