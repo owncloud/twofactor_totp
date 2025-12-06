@@ -6,6 +6,7 @@ OC.L10N.register(
     "Scan this QR code with your TOTP app" : "使用您的TOTP與軟體掃描此QR碼",
     "To enable second-factor verify authentication code below." : "要啟用第二因素，請在下面驗證身份驗證代碼。",
     "Authentication code" : "驗證方式碼",
+    "Verify" : "验证",
     "Verified" : "已驗證",
     "Not verified" : "未驗證",
     "Time-based One-time Password" : "基于时间的一次性密码",

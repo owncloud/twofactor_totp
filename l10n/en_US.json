@@ -4,6 +4,7 @@
     "Scan this QR code with your TOTP app" : "Scan this QR code with your TOTP app",
     "To enable second-factor verify authentication code below." : "To enable second-factor verify authentication code below.",
     "Authentication code" : "Authentication code",
+    "Verify" : "Verify",
     "Verified" : "Verified",
     "Not verified" : "Not verified",
     "Time-based One-time Password" : "Time-based One-time Password",
