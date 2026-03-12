@@ -47,10 +47,8 @@ class TotpSecretMapper extends Mapper {
 				->where($qb->expr()->eq('user_id', $qb->createNamedParameter($user->getUID())));
 		$result = $qb->execute();
 
-		/* @phan-suppress-next-line PhanDeprecatedFunction */
-		$row = $result->fetch();
-		/* @phan-suppress-next-line PhanDeprecatedFunction */
-		$result->closeCursor();
+		$row = $result->fetchAssociative();
+		$result->free();
 		if ($row === false) {
 			throw new DoesNotExistException('Secret does not exist');
 		}
@@ -91,10 +89,9 @@ class TotpSecretMapper extends Mapper {
 
 	public function getAllSecrets() {
 		$qb = $this->db->getQueryBuilder();
-		/* @phan-suppress-next-line PhanDeprecatedFunction */
 		return $qb ->select('*')
 			->from('twofactor_totp_secrets')
 			->execute()
-			->fetchAll();
+			->fetchAllAssociative();
 	}
 }
