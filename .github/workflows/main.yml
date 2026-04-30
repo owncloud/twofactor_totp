@@ -55,3 +55,24 @@ jobs:
       app-name: ${{ needs.get-vars.outputs.app-name }}
       php-versions: ${{ needs.get-vars.outputs.php-versions }}
 
+  acceptance-webui:
+    name: WebUI acceptance tests
+    needs:
+      - get-vars
+    uses: owncloud/reusable-workflows/.github/workflows/acceptance.yml@main
+    with:
+      app-name: ${{ needs.get-vars.outputs.app-name }}
+      do-webui-tests: true
+      test-suites: "['webUIapiTwoFactorTOTP', 'webUIcliTwoFactorTOTP', 'webUITwoFactorTOTP']"
+
+  acceptance-webui-guests:
+    name: WebUI acceptance tests
+    needs:
+      - get-vars
+    uses: owncloud/reusable-workflows/.github/workflows/acceptance.yml@main
+    with:
+      app-name: ${{ needs.get-vars.outputs.app-name }}
+      do-webui-tests: true
+      use-email-server: true
+      additional-app: 'guests'
+      test-suites: "['webUITOTPGuests']"

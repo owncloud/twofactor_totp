@@ -60,22 +60,6 @@ config = {
     "javascript": False,
     "phpunit": False,
     "acceptance": {
-        "webUI": {
-            "suites": {
-                "webUITwoFactorTOTP": "webUITwoFactTOTP",
-            },
-            "browsers": [
-                "chrome",
-                "firefox",
-            ],
-        },
-        # Note: the API and CLI tests need webUI steps for their setup, so they look like webUI suites
-        "webUIother": {
-            "suites": {
-                "webUIapiTwoFactorTOTP": "webUIapiTOTP",
-                "webUIcliTwoFactorTOTP": "webUIcliTOTP",
-            },
-        },
         "webUI-encryption": {
             "suites": {
                 "webUIapiTwoFactorTOTP": "webUIapiTOTPEnc",
@@ -99,18 +83,6 @@ config = {
             "servers": [
                 "daily-master-qa",
             ],
-        },
-        "webUI-guests": {
-            "suites": [
-                "webUITOTPGuests",
-            ],
-            "extraApps": {
-                "guests": "",
-            },
-            "servers": [
-                "daily-master-qa",
-            ],
-            "emailNeeded": True,
         },
     },
 }
