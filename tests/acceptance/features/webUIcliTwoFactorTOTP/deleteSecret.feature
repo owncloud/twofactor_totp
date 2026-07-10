@@ -29,7 +29,7 @@ Feature: Use the CLI to delete secrets for users
     And the command output should contain the text "1 secrets deleted for Alice"
     And user "Alice" using password "%regularuser%" should not be able to download file "textfile0.txt"
 
-  Scenario: Delete secrets for mutiple users
+  Scenario: Delete secrets for multiple users
     Given user "Alice" has logged in using the webUI
     And the user has browsed to the personal security settings page
     And the user has activated TOTP Second-factor auth but not verified

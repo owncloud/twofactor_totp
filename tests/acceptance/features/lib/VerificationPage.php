@@ -50,7 +50,10 @@ class VerificationPage extends OwncloudPage {
 		Session $session,
 		int $timeout_msec = STANDARD_UI_WAIT_TIMEOUT_MILLISEC
 	): void {
-		$field = $this->waitTillElementIsNotNull($this->verificationFieldXpath);
+		$field = $this->waitTillElementIsNotNull(
+			$this->verificationFieldXpath,
+			$timeout_msec
+		);
 		$this->assertElementNotNull(
 			$field,
 			__METHOD__ . ' Field for adding verification code could not be found'
