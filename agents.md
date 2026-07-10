@@ -17,7 +17,7 @@ An ownCloud Server (OC10) app providing TOTP (Time-based One-Time Password) seco
 - `l10n/` — Localization/translation files
 - `templates/` — PHP templates for settings UI
 - `screenshots/` — UI screenshots for documentation
-- `tests/` — PHPUnit unit and integration tests
+- `tests/` — PHPUnit unit and acceptance tests
 - `Makefile` — Build and test orchestration
 - `composer.json` — PHP dependencies
 - `phpcs.xml` — Code style configuration
@@ -43,10 +43,10 @@ make test-php-style         # Check code style (phpcs)
 make test-php-style-fix     # Auto-fix code style issues
 make test-php-phan          # Run Phan static analysis
 make test-php-phpstan       # Run PHPStan static analysis
+make test-acceptance-webui  # Run WebUI acceptance tests
 make dist                   # Build distribution package
 make clean                  # Clean build artifacts
 phpunit -c phpunit.xml      # Run unit tests directly
-phpunit -c phpunit.integration.xml  # Run integration tests
 ```
 
 ## Important Constraints
