@@ -262,7 +262,7 @@ class TwoFactorTOTPContext implements Context {
 	}
 
 	/**
-	 * Send request with secret key for two factor authentication
+	 * Send request with secret key for two-factor authentication
 	 *
 	 * @param string $user
 	 * @param string $secretKey
