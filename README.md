@@ -8,7 +8,7 @@ Two-Factor TOTP adds Time-based One-Time Password (TOTP) second-factor authentic
 
 ## Part of Classic (OC10)
 
-This app is part of the [ownCloud Server (OC10)](https://github.com/owncloud/core) two-factor authentication ecosystem, providing TOTP-based second-factor login. It works alongside [twofactor_backup_codes](https://github.com/owncloud/twofactor_backup_codes) for account recovery.
+This app is part of the [ownCloud Server (OC10)](https://github.com/owncloud/core) two-factor authentication ecosystem, providing TOTP-based second-factor login.
 
 The ownCloud Server is available on [Docker Hub](https://hub.docker.com/r/owncloud/server).
 
