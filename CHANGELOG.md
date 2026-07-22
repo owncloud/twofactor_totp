@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - xxxx-xx-xx
 
+
+## [0.10.1] - 2026-07-22
+
+### Changed
+- Maintenance release re-signed with the ownCloud G2 code-signing certificate for the ownCloud 11.0.0 release.
+
+## [0.10.0] - 2026-06-29
+
+### Changed
+- ownCloud 11 compatible release (oc 11.0.0-rc1).
+
 ## [0.9.0] - 2024-01-09
 
 - [#311](https://github.com/owncloud/twofactor_totp/pull/311) - feat: allow occ admin to delete user's secrets
@@ -141,7 +152,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.9.0...master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.10.1..master
+[0.10.1]: https://github.com/owncloud/twofactor_totp/compare/v0.10.0..v0.10.1
+[0.10.0]: https://github.com/owncloud/twofactor_totp/compare/v0.9.0..v0.10.0
 [0.9.0]: https://github.com/owncloud/twofactor_totp/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/owncloud/twofactor_totp/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/owncloud/twofactor_totp/compare/v0.7.5...v0.8.0
