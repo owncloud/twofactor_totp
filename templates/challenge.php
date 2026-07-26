@@ -10,7 +10,7 @@ script('core', 'login');
 <?php endif; ?>
 <form method="POST" name="login">
 	<div class="grouptop">
-		<input type="text" name="challenge" required="required" autofocus autocomplete="off" autocapitalize="off">
+		<input id="totp" type="text" name="challenge" required="required" autofocus autocomplete="off" autocapitalize="off">
 	</div>
     <div class="submit-wrap">
         <button type="submit" id="submit" class="login-button">
