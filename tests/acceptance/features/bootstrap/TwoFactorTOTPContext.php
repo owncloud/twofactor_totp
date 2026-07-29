@@ -443,5 +443,6 @@ class TwoFactorTOTPContext implements Context {
 	 */
 	public function resetEnforcedTwoFactorAuth(): void {
 		$this->occContext->deleteConfigKeyOfAppUsingTheOccCommand('enforce_2fa', 'core');
+		$this->occContext->deleteConfigKeyOfAppUsingTheOccCommand('enforce_2fa_excluded_groups', 'core');
 	}
 }
