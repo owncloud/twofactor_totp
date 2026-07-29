@@ -6,6 +6,7 @@ script('core', 'login');
 <div class="grouptop" style="align-items:center;">
 	<p class="info"><?php p($l->t('Scan the QR code below with your TOTP app and enter the code')); ?></p>
 	<img src="<?php p($_['qr']); ?>" />
+	<p class="info"><?php p($l->t('This is your new TOTP secret:')); ?> <strong><?php p($_['secret']); ?></strong></p>
 </div>
 <?php endif; ?>
 <form method="POST" name="login">

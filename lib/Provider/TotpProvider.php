@@ -86,8 +86,9 @@ class TotpProvider implements IProvider {
 		// If 2-factor is enforced, the challenge page will be accessed
 		// regardless of the user having configured the app or not.
 		// If the user doesn't have the app configured, we need to show
-		// the QR so the user is able to configured the app from the
-		// challenge page. The QR won't be shown if the app is already
+		// the QR and the secret so the user is able to configured the app
+		// from the challenge page - the secret because not every user is
+		// able to scan a QR code. Neither is shown if the app is already
 		// configured
 		$tmpl = new Template('twofactor_totp', 'challenge');
 		try {
@@ -103,6 +104,7 @@ class TotpProvider implements IProvider {
 		if (!$verified) {
 			$tmpl->assign('isConfigured', false);
 			$tmpl->assign('qr', $this->otpGen->generateOtpQR($user, $secret));
+			$tmpl->assign('secret', $secret);
 		} else {
 			$tmpl->assign('isConfigured', true);
 		}

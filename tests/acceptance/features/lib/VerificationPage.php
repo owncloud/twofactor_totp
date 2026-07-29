@@ -35,6 +35,11 @@ class VerificationPage extends OwncloudPage {
 	private $verifySubmissionBtnXpath = '//form//button[@type="submit"]';
 	private $errorTokenMessageXpath = '//div/span[contains(text(),"verifying the token")]';
 	private $cancelOrLoginButtonXpath = '//a[@class="two-factor-cancel"]';
+	// the form input is wrapped in a "grouptop" div as well, so the enrolment
+	// block is identified by the QR code image it contains
+	private $enrolmentBlockXpath = '//div[contains(@class,"grouptop")][.//img]';
+	private $enrolmentQrCodeXpath = '//div[contains(@class,"grouptop")]//img';
+	private $enrolmentSecretXpath = '//div[contains(@class,"grouptop")]//p/strong';
 
 	/**
 	 * there is no reliable loading indicator on the verification page, so just wait for
@@ -109,5 +114,50 @@ class VerificationPage extends OwncloudPage {
 	 */
 	public function isErrorMessagePresent(): ?NodeElement {
 		return $this->find('xpath', $this->errorTokenMessageXpath);
+	}
+
+	/**
+	 * Returns the enrolment QR code image in base64.
+	 *
+	 * The QR code is only rendered when the user has not verified a secret yet,
+	 * which is the case when 2-factor auth is enforced for a user who has never
+	 * configured the app.
+	 *
+	 * @return string
+	 */
+	public function getEnrolmentQRCode(): string {
+		$image = $this->waitTillElementIsNotNull($this->enrolmentQrCodeXpath);
+		$this->assertElementNotNull(
+			$image,
+			__METHOD__ . ' enrolment QR code not found on the verification page'
+		);
+		return $image->getAttribute("src");
+	}
+
+	/**
+	 * Returns the enrolment block (QR code and secret), or null when the user
+	 * has already verified a secret and does not need to enrol.
+	 *
+	 * @return NodeElement|null
+	 */
+	public function isEnrolmentBlockPresent(): ?NodeElement {
+		return $this->find('xpath', $this->enrolmentBlockXpath);
+	}
+
+	/**
+	 * Returns the enrolment secret displayed next to the QR code.
+	 *
+	 * It is displayed for users who cannot scan a QR code and have to type the
+	 * secret into their TOTP app by hand.
+	 *
+	 * @return string
+	 */
+	public function getEnrolmentSecret(): string {
+		$secret = $this->waitTillElementIsNotNull($this->enrolmentSecretXpath);
+		$this->assertElementNotNull(
+			$secret,
+			__METHOD__ . ' enrolment secret not found on the verification page'
+		);
+		return \trim($secret->getText());
 	}
 }
