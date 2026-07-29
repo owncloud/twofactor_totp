@@ -62,4 +62,41 @@ class TotpProviderTest extends TestCase {
 			->with($this->user, '111111');
 		$this->totpProvider->verifyChallenge($this->user, '111111');
 	}
+
+	/**
+	 * An unverified secret means the user still has to enroll their TOTP app
+	 * from the challenge page - which is the only page they get when 2FA is
+	 * enforced. Both the QR code and the secret itself have to be handed to
+	 * the template, so that users who cannot scan a QR code are still able to
+	 * enroll.
+	 */
+	public function testGetTemplateShowsQrAndSecretForUnverifiedSecret() {
+		$this->totp->method('getSecretInfo')
+			->with($this->user)
+			->willReturn(['secret' => 'MYTOTPSECRET', 'verified' => false]);
+		$this->otpGen->method('generateOtpQR')
+			->with($this->user, 'MYTOTPSECRET')
+			->willReturn('data:image/png;base64,QRCODE');
+
+		$page = $this->totpProvider->getTemplate($this->user)->fetchPage();
+
+		$this->assertStringContainsString('data:image/png;base64,QRCODE', $page);
+		$this->assertStringContainsString('MYTOTPSECRET', $page);
+	}
+
+	/**
+	 * A verified secret means the app is already enrolled - neither the QR
+	 * code nor the secret may be disclosed on the challenge page.
+	 */
+	public function testGetTemplateHidesSecretForVerifiedSecret() {
+		$this->totp->method('getSecretInfo')
+			->with($this->user)
+			->willReturn(['secret' => 'MYTOTPSECRET', 'verified' => true]);
+		$this->otpGen->expects($this->never())
+			->method('generateOtpQR');
+
+		$page = $this->totpProvider->getTemplate($this->user)->fetchPage();
+
+		$this->assertStringNotContainsString('MYTOTPSECRET', $page);
+	}
 }

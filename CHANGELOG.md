@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - xxxx-xx-xx
 
+### Fixed
+- [#340](https://github.com/owncloud/twofactor_totp/pull/340) - fix: show the TOTP secret next to the QR code on the challenge page
+
+  When two-factor auth is enforced (`enforce_2fa`), a user who has never
+  configured TOTP is sent straight to the challenge page and cannot reach the
+  personal security settings. The challenge page offered only the QR code, so
+  users who are unable to scan one had no way to enrol. The secret is now shown
+  next to the QR code, as it already is in the personal settings. It is still
+  never shown to users who have verified a secret.
+
 
 ## [0.10.1] - 2026-07-22
 

@@ -66,6 +66,12 @@ class TwoFactorTOTPContext implements Context {
 	private $verificationPage;
 
 	/**
+	 *
+	 * @var OccContext
+	 */
+	private $occContext;
+
+	/**
 	 * @var int
 	 */
 	private $counter;
@@ -142,8 +148,21 @@ class TwoFactorTOTPContext implements Context {
 	 * @return string
 	 */
 	public function getSecretCodeFromQRCode(): string {
+		return $this->extractSecretFromQRCode(
+			$this->personalSecuritySettingsPage->getQRCode()
+		);
+	}
+
+	/**
+	 * Returns the secret code encoded in the given base64 QR code image
+	 *
+	 * @param string $qrCodeImage the "src" attribute of the QR code image
+	 *
+	 * @return string
+	 */
+	private function extractSecretFromQRCode(string $qrCodeImage): string {
 		$path = \tempnam(\sys_get_temp_dir(), 'totp_qrcode');
-		$data = \explode(',', $this->personalSecuritySettingsPage->getQRCode());
+		$data = \explode(',', $qrCodeImage);
 		$file = \fopen($path, 'wb');
 		\fwrite($file, \base64_decode($data[1]));
 		$qrCode = new QrReader($path);
@@ -262,6 +281,45 @@ class TwoFactorTOTPContext implements Context {
 	}
 
 	/**
+	 * @Then the secret code from the QR code should match the one displayed on the verification page
+	 *
+	 * @return void
+	 */
+	public function theSecretCodeFromTheQRCodeShouldMatchTheOneDisplayedOnTheVerificationPage(): void {
+		$secretFromQRCode = $this->extractSecretFromQRCode(
+			$this->verificationPage->getEnrolmentQRCode()
+		);
+		Assert::assertEquals(
+			$secretFromQRCode,
+			$this->verificationPage->getEnrolmentSecret(),
+			'The secret displayed on the verification page does not match the one encoded in the QR code'
+		);
+	}
+
+	/**
+	 * @When the user adds one-time key generated from the secret displayed on the verification page
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function theUserAddsOneTimeKeyGeneratedFromTheSecretOnTheVerificationPage(): void {
+		$this->totpSecret = $this->verificationPage->getEnrolmentSecret();
+		$this->verificationPage->addVerificationKey($this->generateTOTPKey());
+	}
+
+	/**
+	 * @Then the enrolment secret should not be displayed on the verification page
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretShouldNotBeDisplayedOnTheVerificationPage(): void {
+		Assert::assertNull(
+			$this->verificationPage->isEnrolmentBlockPresent(),
+			'The enrolment QR code and secret must not be shown to a user who has already configured TOTP'
+		);
+	}
+
+	/**
 	 * Send request with secret key for two-factor authentication
 	 *
 	 * @param string $user
@@ -369,5 +427,21 @@ class TwoFactorTOTPContext implements Context {
 		// Get all the contexts you need in this context
 		$this->featureContext = $environment->getContext('FeatureContext');
 		$this->webUIGeneralContext = $environment->getContext('WebUIGeneralContext');
+		$this->occContext = $environment->getContext('OccContext');
+	}
+
+	/**
+	 * Enforcing 2-factor auth is not undone by the test framework, so it has to
+	 * be cleared here. Otherwise it would leak into the scenarios that run
+	 * afterwards and send them to the verification page on login.
+	 *
+	 * @AfterScenario @enforce-2fa
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function resetEnforcedTwoFactorAuth(): void {
+		$this->occContext->deleteConfigKeyOfAppUsingTheOccCommand('enforce_2fa', 'core');
+		$this->occContext->deleteConfigKeyOfAppUsingTheOccCommand('enforce_2fa_excluded_groups', 'core');
 	}
 }
