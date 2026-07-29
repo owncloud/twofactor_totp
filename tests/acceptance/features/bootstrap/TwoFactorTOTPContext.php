@@ -298,7 +298,6 @@ class TwoFactorTOTPContext implements Context {
 
 	/**
 	 * @When the user adds one-time key generated from the secret displayed on the verification page
-	 * @Given the user has added one-time key generated from the secret displayed on the verification page
 	 *
 	 * @return void
 	 * @throws Exception

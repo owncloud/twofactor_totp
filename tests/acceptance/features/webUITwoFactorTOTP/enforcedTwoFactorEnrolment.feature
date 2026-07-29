@@ -27,13 +27,14 @@ Feature: Enrol a TOTP app from the verification page when two-factor auth is enf
 
 
   Scenario: A user who cannot scan the QR code can enrol using the displayed secret
-    Given user "Alice" has logged in using the webUI after a redirect from the "verification" page
-    When the user adds one-time key generated from the secret displayed on the verification page
+    When user "Alice" logs in using the webUI after a redirect from the "verification" page
+    And the user adds one-time key generated from the secret displayed on the verification page
     Then the user should be redirected to a webUI page with the title "Files - %productname%"
 
 
   Scenario: The secret is no longer disclosed once the user has enrolled
-    Given user "Alice" has logged in using the webUI after a redirect from the "verification" page
-    And the user has added one-time key generated from the secret displayed on the verification page
+    When user "Alice" logs in using the webUI after a redirect from the "verification" page
+    And the user adds one-time key generated from the secret displayed on the verification page
+    Then the user should be redirected to a webUI page with the title "Files - %productname%"
     When the user re-logs in as "Alice" to the two-factor authentication verification page
     Then the enrolment secret should not be displayed on the verification page
