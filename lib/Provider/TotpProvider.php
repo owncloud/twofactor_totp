@@ -86,7 +86,7 @@ class TotpProvider implements IProvider {
 		// If 2-factor is enforced, the challenge page will be accessed
 		// regardless of the user having configured the app or not.
 		// If the user doesn't have the app configured, we need to show
-		// the QR and the secret so the user is able to configured the app
+		// the QR and the secret so the user is able to configure the app
 		// from the challenge page - the secret because not every user is
 		// able to scan a QR code. Neither is shown if the app is already
 		// configured

@@ -32,9 +32,12 @@ Feature: Enrol a TOTP app from the verification page when two-factor auth is enf
     Then the user should be redirected to a webUI page with the title "Files - %productname%"
 
 
+  # the "has logged in ... after a redirect from" step cannot be used to arrange
+  # this: it asserts that the login ended up on the Files page, which by
+  # definition it does not when the user is redirected to the challenge page
   Scenario: The secret is no longer disclosed once the user has enrolled
-    When user "Alice" logs in using the webUI after a redirect from the "verification" page
+    Given user "Alice" logs in using the webUI after a redirect from the "verification" page
     And the user adds one-time key generated from the secret displayed on the verification page
-    Then the user should be redirected to a webUI page with the title "Files - %productname%"
+    And the user should be redirected to a webUI page with the title "Files - %productname%"
     When the user re-logs in as "Alice" to the two-factor authentication verification page
     Then the enrolment secret should not be displayed on the verification page
