@@ -1,4 +1,4 @@
-# agents.md — twofactor_totp
+# AGENTS.md — twofactor_totp
 
 ## Repository Overview
 
