@@ -59,23 +59,34 @@
         // hidden and it is only revealed here.
         button.removeAttribute('hidden');
 
-        button.addEventListener('click', function () {
-            // Take focus off whatever held it - the challenge field does on arrival,
-            // because of its "autofocus". Chrome already moves focus to a button that is
-            // clicked, and there Ctrl+C copies the selection below either way (measured),
-            // but engines differ in whether a focused text control owns the copy command,
-            // and on a plain-HTTP page that manual copy is the only mechanism left.
+        // Nothing reached the clipboard, so Ctrl+C is the only mechanism left and the
+        // copy command has to see this selection. Focus moves to the button first: the
+        // challenge field holds it on arrival because of its "autofocus", and engines
+        // differ on whether a focused text control owns the copy command. Chrome 153
+        // copies the document selection either way (measured), but Firefox was not
+        // available to check. This is deliberately not done when the write succeeds -
+        // taking focus off the field for no reason would leave the user's keystrokes
+        // going nowhere, and Space or Enter re-triggering the button.
+        var selectForManualCopy = function () {
             button.focus();
             selectSecret(secret);
+        };
+
+        button.addEventListener('click', function () {
+            var clipboard = window.navigator.clipboard;
 
             // undefined outside a secure context
-            if (!window.navigator.clipboard || !window.navigator.clipboard.writeText) {
+            if (!clipboard || !clipboard.writeText) {
+                selectForManualCopy();
                 return;
             }
-            window.navigator.clipboard.writeText(secret.textContent).then(confirmCopied, function (error) {
-                // The label is left alone rather than claiming a copy that did not happen,
-                // and the key stays selected. Logged so that a report of "the button does
-                // nothing" can be told apart from a mis-click in a browser console.
+
+            selectSecret(secret);
+            clipboard.writeText(secret.textContent).then(confirmCopied, function (error) {
+                // The label is left alone rather than claiming a copy that did not happen.
+                // Logged so that a report of "the button does nothing" can be told apart
+                // from a mis-click in a browser console.
+                selectForManualCopy();
                 window.console.warn('twofactor_totp: could not write the TOTP secret to the clipboard', error);
             });
         });

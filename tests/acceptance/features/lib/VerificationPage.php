@@ -224,10 +224,14 @@ class VerificationPage extends OwncloudPage {
 	 * installing the stub after the page has loaded is enough. This keeps the assertion
 	 * deterministic and needs neither HTTPS nor a clipboard permission.
 	 *
+	 * executeScript, not evaluateScript: the latter prepends "return " to a script that
+	 * does not already start with it, which would make everything after the first
+	 * statement here unreachable and leave the stub uninstalled.
+	 *
 	 * @return void
 	 */
 	public function stubClipboard(): void {
-		$this->getSession()->evaluateScript(
+		$this->getSession()->executeScript(
 			'window.totpClipboardWrites = [];' .
 			' Object.defineProperty(window.navigator, "clipboard", {' .
 			' configurable: true,' .
@@ -237,8 +241,7 @@ class VerificationPage extends OwncloudPage {
 			' return Promise.resolve();' .
 			' }' .
 			' }' .
-			' });' .
-			' return true;'
+			' });'
 		);
 	}
 
