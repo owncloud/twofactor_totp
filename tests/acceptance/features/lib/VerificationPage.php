@@ -172,6 +172,7 @@ class VerificationPage extends OwncloudPage {
 	 * TOTP app.
 	 *
 	 * @return string
+	 * @throws \Exception
 	 */
 	public function getEnrolmentSecretUserSelect(): string {
 		$secret = $this->waitTillElementIsNotNull($this->enrolmentSecretXpath);
@@ -180,18 +181,26 @@ class VerificationPage extends OwncloudPage {
 			__METHOD__ . ' enrolment secret not found on the verification page'
 		);
 		// The element is looked up by id rather than reusing $secret because only a
-		// computed style answers the question, and that needs script evaluation. A
-		// missing id is reported instead of letting getComputedStyle(null) fail with
-		// a bare WebDriver error. The prefixed property is read as well, because the
-		// browser the CI job drives is old enough to expose only "-webkit-user-select".
-		return $this->getSession()->evaluateScript(
+		// computed style answers the question, and that needs script evaluation. The
+		// prefixed property is read as well, because the browser the CI job drives is
+		// old enough to expose only "-webkit-user-select".
+		$userSelect = $this->getSession()->evaluateScript(
 			'return (function (el) {' .
-			' if (el === null) { return "no element with id ' . $this->enrolmentSecretId . '"; }' .
+			' if (el === null) { return null; }' .
 			' var style = window.getComputedStyle(el);' .
 			' return style.getPropertyValue("user-select")' .
 			' || style.getPropertyValue("-webkit-user-select");' .
 			'})(document.getElementById("' . $this->enrolmentSecretId . '"));'
 		);
+		// only reachable if the xpath above and the id drift apart - reported here so
+		// that the caller sees the cause instead of comparing against a stand-in value
+		if ($userSelect === null) {
+			throw new \Exception(
+				__METHOD__ .
+				" no element with id $this->enrolmentSecretId on the verification page"
+			);
+		}
+		return $userSelect;
 	}
 
 	/**

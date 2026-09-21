@@ -6,6 +6,18 @@
  * or OC is used here, because the login page is not the place to rely on either, and the
  * labels are rendered by the template - the app's l10n bundle is not loaded on the login
  * page, so t() would not be able to translate them.
+ *
+ * Clicking the button always selects the whole key, and additionally puts it on the
+ * clipboard wherever navigator.clipboard exists, which is every secure context - so every
+ * deployment that serves the login page over HTTPS, plus localhost. There is deliberately
+ * no document.execCommand('copy') fallback for the remaining plain-HTTP case: that command
+ * copies from the focused text control rather than from the document selection, and the
+ * challenge field is focused on arrival because of its "autofocus". Measured in Chrome 153
+ * it returned true while the clipboard kept its previous contents, i.e. it reported success
+ * over a stale clipboard. Working around that means blurring and refocusing across engines
+ * that behave differently and that CI does not exercise, for a case that only arises on a
+ * login page served without TLS. Selecting the key so it can be copied with Ctrl+C covers
+ * it without claiming anything untrue.
  */
 (function () {
     'use strict';
@@ -13,8 +25,8 @@
     /**
      * Make the secret the current document selection.
      *
-     * This is the copy source for the execCommand fallback, and when copying is refused
-     * outright it at least leaves the key selected so it can be copied by hand.
+     * This is both the visible confirmation of what the button acted on and, where the
+     * clipboard is unavailable or refuses the write, what lets the key be copied by hand.
      */
     function selectSecret(secret) {
         var selection = window.getSelection();
@@ -22,39 +34,6 @@
         range.selectNodeContents(secret);
         selection.removeAllRanges();
         selection.addRange(range);
-    }
-
-    /**
-     * Copy the current selection with the legacy command, for insecure contexts.
-     *
-     * The challenge field carries "autofocus", and a browser that does not focus a
-     * button when it is clicked - Safari and Firefox on macOS - leaves it focused.
-     * Those engines then resolve the copy command against the focused text control's
-     * own, empty, selection instead of the document selection, so the field has to be
-     * blurred first. Focus is only handed back when the copy actually succeeded: on
-     * failure the selection is the user's remaining way to get at the key, and
-     * focusing the field again would drop it.
-     *
-     * @return {boolean} whether the secret reached the clipboard
-     */
-    function copyWithExecCommand() {
-        var focused = document.activeElement;
-        if (focused !== null && focused !== document.body && typeof focused.blur === 'function') {
-            focused.blur();
-        }
-
-        var copied = false;
-        try {
-            copied = document.execCommand('copy');
-        } catch (e) {
-            // execCommand throws rather than returning false when the command is
-            // disabled - the same outcome as a refusal.
-        }
-
-        if (copied && focused !== null && typeof focused.focus === 'function') {
-            focused.focus();
-        }
-        return copied;
     }
 
     function init() {
@@ -83,17 +62,14 @@
         button.addEventListener('click', function () {
             selectSecret(secret);
 
-            // navigator.clipboard is undefined outside a secure context, which is why
-            // the execCommand fallback is still needed.
-            if (window.navigator.clipboard && window.navigator.clipboard.writeText) {
-                window.navigator.clipboard.writeText(secret.textContent).then(confirmCopied, function () {
-                    // Copying was denied. Nothing is claimed, and the key stays selected.
-                });
+            // undefined outside a secure context
+            if (!window.navigator.clipboard || !window.navigator.clipboard.writeText) {
                 return;
             }
-            if (copyWithExecCommand()) {
-                confirmCopied();
-            }
+            window.navigator.clipboard.writeText(secret.textContent).then(confirmCopied, function () {
+                // Refused - the label is left alone rather than claiming a copy that did
+                // not happen, and the key stays selected.
+            });
         });
     }
 
