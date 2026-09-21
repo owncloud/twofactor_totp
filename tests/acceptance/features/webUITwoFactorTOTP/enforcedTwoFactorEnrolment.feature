@@ -35,11 +35,21 @@ Feature: Enrol a TOTP app from the verification page when two-factor auth is enf
   # The login page sets "user-select: none" on both "p.info" and ".grouptop", and the
   # secret sits inside both, so without the app's own stylesheet it cannot be selected
   # at all and has to be transcribed by hand.
-  Scenario: The displayed secret can be selected and copied
+  Scenario: The displayed secret can be selected
     Given user "Alice" logs in using the webUI after a redirect from the "verification" page
     Then the enrolment secret on the verification page should be selectable
     When the user copies the enrolment secret on the verification page
     Then the enrolment secret should be the current selection on the verification page
+
+
+  # The browser these tests drive is reached over plain HTTP, which is not a secure
+  # context, so navigator.clipboard does not exist there and the copy would be skipped
+  # altogether. Stubbing it is what makes the button's actual copy observable.
+  Scenario: The copy button writes the secret to the clipboard
+    Given user "Alice" logs in using the webUI after a redirect from the "verification" page
+    And the clipboard has been stubbed on the verification page
+    When the user copies the enrolment secret on the verification page
+    Then the enrolment secret should have been written to the clipboard
 
 
   # the "has logged in ... after a redirect from" step cannot be used to arrange

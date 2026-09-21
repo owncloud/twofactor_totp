@@ -60,15 +60,23 @@
         button.removeAttribute('hidden');
 
         button.addEventListener('click', function () {
+            // Take focus off whatever held it - the challenge field does on arrival,
+            // because of its "autofocus". Chrome already moves focus to a button that is
+            // clicked, and there Ctrl+C copies the selection below either way (measured),
+            // but engines differ in whether a focused text control owns the copy command,
+            // and on a plain-HTTP page that manual copy is the only mechanism left.
+            button.focus();
             selectSecret(secret);
 
             // undefined outside a secure context
             if (!window.navigator.clipboard || !window.navigator.clipboard.writeText) {
                 return;
             }
-            window.navigator.clipboard.writeText(secret.textContent).then(confirmCopied, function () {
-                // Refused - the label is left alone rather than claiming a copy that did
-                // not happen, and the key stays selected.
+            window.navigator.clipboard.writeText(secret.textContent).then(confirmCopied, function (error) {
+                // The label is left alone rather than claiming a copy that did not happen,
+                // and the key stays selected. Logged so that a report of "the button does
+                // nothing" can be told apart from a mis-click in a browser console.
+                window.console.warn('twofactor_totp: could not write the TOTP secret to the clipboard', error);
             });
         });
     }

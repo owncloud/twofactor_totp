@@ -352,6 +352,32 @@ class TwoFactorTOTPContext implements Context {
 	}
 
 	/**
+	 * @Given the clipboard has been stubbed on the verification page
+	 *
+	 * @return void
+	 */
+	public function theClipboardHasBeenStubbedOnTheVerificationPage(): void {
+		$this->verificationPage->stubClipboard();
+	}
+
+	/**
+	 * Only the write itself is asserted, not the button's "Copied" label: that label
+	 * reverts on a timer a few seconds later, which would make the assertion depend on
+	 * how quickly the step runs.
+	 *
+	 * @Then the enrolment secret should have been written to the clipboard
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretShouldHaveBeenWrittenToTheClipboard(): void {
+		Assert::assertEquals(
+			[$this->verificationPage->getEnrolmentSecret()],
+			$this->verificationPage->getStubbedClipboardWrites(),
+			'The copy button did not write the enrolment secret to the clipboard'
+		);
+	}
+
+	/**
 	 * @Then the enrolment secret should not be displayed on the verification page
 	 *
 	 * @return void

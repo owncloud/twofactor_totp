@@ -216,6 +216,44 @@ class VerificationPage extends OwncloudPage {
 	}
 
 	/**
+	 * Replaces navigator.clipboard with a stub that records what it was asked to write.
+	 *
+	 * The browser the acceptance tests drive is reached over plain HTTP, which is not a
+	 * secure context, so navigator.clipboard does not exist there and the copy path would
+	 * never run. challenge.js only looks the API up when the button is clicked, so
+	 * installing the stub after the page has loaded is enough. This keeps the assertion
+	 * deterministic and needs neither HTTPS nor a clipboard permission.
+	 *
+	 * @return void
+	 */
+	public function stubClipboard(): void {
+		$this->getSession()->evaluateScript(
+			'window.totpClipboardWrites = [];' .
+			' Object.defineProperty(window.navigator, "clipboard", {' .
+			' configurable: true,' .
+			' value: {' .
+			' writeText: function (text) {' .
+			' window.totpClipboardWrites.push(text);' .
+			' return Promise.resolve();' .
+			' }' .
+			' }' .
+			' });' .
+			' return true;'
+		);
+	}
+
+	/**
+	 * Returns everything the stubbed clipboard was asked to write, in order.
+	 *
+	 * @return array
+	 */
+	public function getStubbedClipboardWrites(): array {
+		return $this->getSession()->evaluateScript(
+			'return window.totpClipboardWrites || [];'
+		);
+	}
+
+	/**
 	 * Returns the text the browser currently has selected.
 	 *
 	 * @return string

@@ -13,7 +13,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
   and the enrolment secret introduced in 0.10.2 sits inside both, so it inherited the
   rule and could not be selected at all. Users who cannot scan the QR code had to
   transcribe the key by hand. The secret is now selectable - a single click selects the
-  whole key - and a Copy button next to it puts it on the clipboard.
+  whole key - and a Copy button next to it puts it on the clipboard where the browser
+  permits that, which means any server reachable over HTTPS. Elsewhere the button selects
+  the key so that it can be copied with Ctrl+C.
 
 
 ## [0.10.2] - 2026-07-29
