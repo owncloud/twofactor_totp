@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - xxxx-xx-xx
 
+
+## [0.10.3] - 2026-09-21
+
 ### Fixed
 - [#345](https://github.com/owncloud/twofactor_totp/pull/345) - fix: allow the TOTP secret on the challenge page to be selected and copied
 
@@ -176,7 +179,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - App is now signed
 
-[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.10.2..master
+[Unreleased]: https://github.com/owncloud/twofactor_totp/compare/v0.10.3..master
+[0.10.3]: https://github.com/owncloud/twofactor_totp/compare/v0.10.2..v0.10.3
 [0.10.2]: https://github.com/owncloud/twofactor_totp/compare/v0.10.1..v0.10.2
 [0.10.1]: https://github.com/owncloud/twofactor_totp/compare/v0.10.0..v0.10.1
 [0.10.0]: https://github.com/owncloud/twofactor_totp/compare/v0.9.0..v0.10.0
