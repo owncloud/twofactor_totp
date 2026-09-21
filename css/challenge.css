@@ -4,10 +4,16 @@
  * inherits the rule and cannot be selected at all. The secret has to be selectable - it
  * is meant to be copied into a TOTP app by users who cannot scan the QR code. "all"
  * selects the whole key on a single click, which is what you want for an atomic token.
- * Only the -webkit- prefix is still needed (Safari before 17.4); -ms-user-select never
- * supported the "all" value.
+ *
+ * "text" is declared first on purpose: the "all" value only arrived in Safari 16 and is
+ * not available in the iOS web view, and a browser that does not know it drops just that
+ * declaration. Without the "text" line it would drop the whole rule and inherit "none"
+ * again, which is the very bug this fixes. Only the -webkit- prefix is still needed
+ * (Safari before 17.4); -ms-user-select never supported either value.
  */
 #body-login .grouptop p.info .totp-secret {
+	-webkit-user-select: text;
+	user-select: text;
 	-webkit-user-select: all;
 	user-select: all;
 }

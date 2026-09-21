@@ -313,9 +313,12 @@ class TwoFactorTOTPContext implements Context {
 	 * @return void
 	 */
 	public function theEnrolmentSecretOnTheVerificationPageShouldBeSelectable(): void {
-		Assert::assertNotEquals(
-			'none',
+		// both values are accepted: the stylesheet asks for "all" and falls back to
+		// "text" on a browser that does not know it. Asserting the set rather than
+		// "not none" also catches an empty string, which a missing element would give.
+		Assert::assertContains(
 			$this->verificationPage->getEnrolmentSecretUserSelect(),
+			['all', 'text'],
 			'The enrolment secret cannot be selected, so it cannot be copied'
 		);
 	}

@@ -179,14 +179,18 @@ class VerificationPage extends OwncloudPage {
 			$secret,
 			__METHOD__ . ' enrolment secret not found on the verification page'
 		);
-		// the prefixed property is read as well, because the browser the CI job
-		// drives is old enough to expose only "-webkit-user-select"
+		// The element is looked up by id rather than reusing $secret because only a
+		// computed style answers the question, and that needs script evaluation. A
+		// missing id is reported instead of letting getComputedStyle(null) fail with
+		// a bare WebDriver error. The prefixed property is read as well, because the
+		// browser the CI job drives is old enough to expose only "-webkit-user-select".
 		return $this->getSession()->evaluateScript(
-			'return (function (style) {' .
+			'return (function (el) {' .
+			' if (el === null) { return "no element with id ' . $this->enrolmentSecretId . '"; }' .
+			' var style = window.getComputedStyle(el);' .
 			' return style.getPropertyValue("user-select")' .
 			' || style.getPropertyValue("-webkit-user-select");' .
-			'})(window.getComputedStyle(' .
-			'document.getElementById("' . $this->enrolmentSecretId . '")));'
+			'})(document.getElementById("' . $this->enrolmentSecretId . '"));'
 		);
 	}
 
@@ -196,12 +200,10 @@ class VerificationPage extends OwncloudPage {
 	 * @return void
 	 */
 	public function copyEnrolmentSecret(): void {
-		$button = $this->waitTillElementIsNotNull($this->enrolmentCopyButtonXpath);
-		$this->assertElementNotNull(
-			$button,
-			__METHOD__ . ' copy button not found on the verification page'
-		);
-		$button->click();
+		// visibility, not mere presence: the button is rendered with the "hidden"
+		// attribute and only revealed by challenge.js on DOMContentLoaded, so waiting
+		// for the node alone would race the script and click a hidden element
+		$this->waitTillXpathIsVisible($this->enrolmentCopyButtonXpath)->click();
 	}
 
 	/**

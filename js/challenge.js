@@ -24,6 +24,39 @@
         selection.addRange(range);
     }
 
+    /**
+     * Copy the current selection with the legacy command, for insecure contexts.
+     *
+     * The challenge field carries "autofocus", and a browser that does not focus a
+     * button when it is clicked - Safari and Firefox on macOS - leaves it focused.
+     * Those engines then resolve the copy command against the focused text control's
+     * own, empty, selection instead of the document selection, so the field has to be
+     * blurred first. Focus is only handed back when the copy actually succeeded: on
+     * failure the selection is the user's remaining way to get at the key, and
+     * focusing the field again would drop it.
+     *
+     * @return {boolean} whether the secret reached the clipboard
+     */
+    function copyWithExecCommand() {
+        var focused = document.activeElement;
+        if (focused !== null && focused !== document.body && typeof focused.blur === 'function') {
+            focused.blur();
+        }
+
+        var copied = false;
+        try {
+            copied = document.execCommand('copy');
+        } catch (e) {
+            // execCommand throws rather than returning false when the command is
+            // disabled - the same outcome as a refusal.
+        }
+
+        if (copied && focused !== null && typeof focused.focus === 'function') {
+            focused.focus();
+        }
+        return copied;
+    }
+
     function init() {
         var secret = document.getElementById('totp-secret');
         var button = document.getElementById('totp-copy-secret');
@@ -58,7 +91,7 @@
                 });
                 return;
             }
-            if (document.execCommand('copy')) {
+            if (copyWithExecCommand()) {
                 confirmCopied();
             }
         });
