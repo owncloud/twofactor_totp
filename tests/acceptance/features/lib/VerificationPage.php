@@ -40,6 +40,8 @@ class VerificationPage extends OwncloudPage {
 	private $enrolmentBlockXpath = '//div[contains(@class,"grouptop")][.//img]';
 	private $enrolmentQrCodeXpath = '//div[contains(@class,"grouptop")]//img';
 	private $enrolmentSecretXpath = '//div[contains(@class,"grouptop")]//p/strong';
+	private $enrolmentSecretId = 'totp-secret';
+	private $enrolmentCopyButtonXpath = '//div[contains(@class,"grouptop")]//p/button[@id="totp-copy-secret"]';
 
 	/**
 	 * there is no reliable loading indicator on the verification page, so just wait for
@@ -159,5 +161,57 @@ class VerificationPage extends OwncloudPage {
 			__METHOD__ . ' enrolment secret not found on the verification page'
 		);
 		return \trim($secret->getText());
+	}
+
+	/**
+	 * Returns the computed "user-select" of the enrolment secret.
+	 *
+	 * The login page sets "user-select: none" on both "#body-login p.info" and
+	 * ".grouptop", and the secret sits inside both, so without the app's own
+	 * stylesheet it cannot be selected - and therefore cannot be copied into a
+	 * TOTP app.
+	 *
+	 * @return string
+	 */
+	public function getEnrolmentSecretUserSelect(): string {
+		$secret = $this->waitTillElementIsNotNull($this->enrolmentSecretXpath);
+		$this->assertElementNotNull(
+			$secret,
+			__METHOD__ . ' enrolment secret not found on the verification page'
+		);
+		// the prefixed property is read as well, because the browser the CI job
+		// drives is old enough to expose only "-webkit-user-select"
+		return $this->getSession()->evaluateScript(
+			'return (function (style) {' .
+			' return style.getPropertyValue("user-select")' .
+			' || style.getPropertyValue("-webkit-user-select");' .
+			'})(window.getComputedStyle(' .
+			'document.getElementById("' . $this->enrolmentSecretId . '")));'
+		);
+	}
+
+	/**
+	 * Clicks the button that copies the enrolment secret to the clipboard.
+	 *
+	 * @return void
+	 */
+	public function copyEnrolmentSecret(): void {
+		$button = $this->waitTillElementIsNotNull($this->enrolmentCopyButtonXpath);
+		$this->assertElementNotNull(
+			$button,
+			__METHOD__ . ' copy button not found on the verification page'
+		);
+		$button->click();
+	}
+
+	/**
+	 * Returns the text the browser currently has selected.
+	 *
+	 * @return string
+	 */
+	public function getSelectedText(): string {
+		return \trim(
+			$this->getSession()->evaluateScript('return window.getSelection().toString();')
+		);
 	}
 }

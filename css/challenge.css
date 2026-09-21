@@ -1,0 +1,32 @@
+/*
+ * The login page sets "user-select: none" on both "#body-login p.info" and ".grouptop"
+ * (owncloud/core, core/css/styles.css), and the enrolment secret sits inside both, so it
+ * inherits the rule and cannot be selected at all. The secret has to be selectable - it
+ * is meant to be copied into a TOTP app by users who cannot scan the QR code. "all"
+ * selects the whole key on a single click, which is what you want for an atomic token.
+ * Only the -webkit- prefix is still needed (Safari before 17.4); -ms-user-select never
+ * supported the "all" value.
+ */
+#body-login .grouptop p.info .totp-secret {
+	-webkit-user-select: all;
+	user-select: all;
+}
+
+/*
+ * core/css/inputs.css already gives a plain <button> the regular ownCloud look, which is
+ * what we want here - only the gap to the secret is missing, because that rule sets
+ * "margin: 3px 3px 3px 0".
+ */
+#body-login .grouptop p.info .totp-copy-secret {
+	margin-left: 6px;
+}
+
+/*
+ * The button is rendered with the "hidden" attribute and revealed by challenge.js, so it
+ * is never a dead control when JavaScript is unavailable. No author rule sets "display"
+ * on it, so the user-agent stylesheet would hide it anyway - this is a safeguard against
+ * a theme that styles buttons with a "display" declaration.
+ */
+#body-login .grouptop p.info .totp-copy-secret[hidden] {
+	display: none;
+}

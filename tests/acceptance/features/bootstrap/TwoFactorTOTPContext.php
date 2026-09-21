@@ -308,6 +308,47 @@ class TwoFactorTOTPContext implements Context {
 	}
 
 	/**
+	 * @Then the enrolment secret on the verification page should be selectable
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretOnTheVerificationPageShouldBeSelectable(): void {
+		Assert::assertNotEquals(
+			'none',
+			$this->verificationPage->getEnrolmentSecretUserSelect(),
+			'The enrolment secret cannot be selected, so it cannot be copied'
+		);
+	}
+
+	/**
+	 * @When the user copies the enrolment secret on the verification page
+	 *
+	 * @return void
+	 */
+	public function theUserCopiesTheEnrolmentSecretOnTheVerificationPage(): void {
+		$this->verificationPage->copyEnrolmentSecret();
+	}
+
+	/**
+	 * The clipboard itself is deliberately not read back: the browser the CI job
+	 * drives is reached over plain HTTP, so navigator.clipboard is unavailable and
+	 * reading the clipboard would need a permission the harness does not grant.
+	 * Selecting the secret is what the copy button does in every case, and it is
+	 * also the fallback that lets a user copy by hand.
+	 *
+	 * @Then the enrolment secret should be the current selection on the verification page
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretShouldBeTheCurrentSelectionOnTheVerificationPage(): void {
+		Assert::assertEquals(
+			$this->verificationPage->getEnrolmentSecret(),
+			$this->verificationPage->getSelectedText(),
+			'The enrolment secret is not the text the browser has selected'
+		);
+	}
+
+	/**
 	 * @Then the enrolment secret should not be displayed on the verification page
 	 *
 	 * @return void

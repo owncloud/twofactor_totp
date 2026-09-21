@@ -32,6 +32,16 @@ Feature: Enrol a TOTP app from the verification page when two-factor auth is enf
     Then the user should be redirected to a webUI page with the title "Files - %productname%"
 
 
+  # The login page sets "user-select: none" on both "p.info" and ".grouptop", and the
+  # secret sits inside both, so without the app's own stylesheet it cannot be selected
+  # at all and has to be transcribed by hand.
+  Scenario: The displayed secret can be selected and copied
+    Given user "Alice" logs in using the webUI after a redirect from the "verification" page
+    Then the enrolment secret on the verification page should be selectable
+    When the user copies the enrolment secret on the verification page
+    Then the enrolment secret should be the current selection on the verification page
+
+
   # the "has logged in ... after a redirect from" step cannot be used to arrange
   # this: it asserts that the login ended up on the Files page, which by
   # definition it does not when the user is redirected to the challenge page
