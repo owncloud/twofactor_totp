@@ -13,6 +13,7 @@ An ownCloud Server (OC10) app providing TOTP (Time-based One-Time Password) seco
 
 - `appinfo/` — ownCloud app metadata (info.xml, routes)
 - `lib/` — PHP backend (TOTP generation, verification, providers)
+- `css/` — Stylesheets (login/challenge page)
 - `js/` — Frontend JavaScript (QR code display, settings UI)
 - `l10n/` — Localization/translation files
 - `templates/` — PHP templates for settings UI

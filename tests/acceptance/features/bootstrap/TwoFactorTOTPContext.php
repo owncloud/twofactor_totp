@@ -308,6 +308,76 @@ class TwoFactorTOTPContext implements Context {
 	}
 
 	/**
+	 * @Then the enrolment secret on the verification page should be selectable
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretOnTheVerificationPageShouldBeSelectable(): void {
+		// both values are accepted: the stylesheet asks for "all" and falls back to
+		// "text" on a browser that does not know it. Asserting the set rather than
+		// "not none" also catches an empty string, which a missing element would give.
+		Assert::assertContains(
+			$this->verificationPage->getEnrolmentSecretUserSelect(),
+			['all', 'text'],
+			'The enrolment secret cannot be selected, so it cannot be copied'
+		);
+	}
+
+	/**
+	 * @When the user copies the enrolment secret on the verification page
+	 *
+	 * @return void
+	 */
+	public function theUserCopiesTheEnrolmentSecretOnTheVerificationPage(): void {
+		$this->verificationPage->copyEnrolmentSecret();
+	}
+
+	/**
+	 * The clipboard itself is deliberately not read back: the browser the CI job
+	 * drives is reached over plain HTTP, so navigator.clipboard is unavailable and
+	 * reading the clipboard would need a permission the harness does not grant.
+	 * Selecting the secret is what the copy button does in every case, and it is
+	 * also the fallback that lets a user copy by hand.
+	 *
+	 * @Then the enrolment secret should be the current selection on the verification page
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretShouldBeTheCurrentSelectionOnTheVerificationPage(): void {
+		Assert::assertEquals(
+			$this->verificationPage->getEnrolmentSecret(),
+			$this->verificationPage->getSelectedText(),
+			'The enrolment secret is not the text the browser has selected'
+		);
+	}
+
+	/**
+	 * @Given the clipboard has been stubbed on the verification page
+	 *
+	 * @return void
+	 */
+	public function theClipboardHasBeenStubbedOnTheVerificationPage(): void {
+		$this->verificationPage->stubClipboard();
+	}
+
+	/**
+	 * Only the write itself is asserted, not the button's "Copied" label: that label
+	 * reverts on a timer a few seconds later, which would make the assertion depend on
+	 * how quickly the step runs.
+	 *
+	 * @Then the enrolment secret should have been written to the clipboard
+	 *
+	 * @return void
+	 */
+	public function theEnrolmentSecretShouldHaveBeenWrittenToTheClipboard(): void {
+		Assert::assertEquals(
+			[$this->verificationPage->getEnrolmentSecret()],
+			$this->verificationPage->getStubbedClipboardWrites(),
+			'The copy button did not write the enrolment secret to the clipboard'
+		);
+	}
+
+	/**
 	 * @Then the enrolment secret should not be displayed on the verification page
 	 *
 	 * @return void

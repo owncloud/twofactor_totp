@@ -40,6 +40,8 @@ class VerificationPage extends OwncloudPage {
 	private $enrolmentBlockXpath = '//div[contains(@class,"grouptop")][.//img]';
 	private $enrolmentQrCodeXpath = '//div[contains(@class,"grouptop")]//img';
 	private $enrolmentSecretXpath = '//div[contains(@class,"grouptop")]//p/strong';
+	private $enrolmentSecretId = 'totp-secret';
+	private $enrolmentCopyButtonXpath = '//div[contains(@class,"grouptop")]//p/button[@id="totp-copy-secret"]';
 
 	/**
 	 * there is no reliable loading indicator on the verification page, so just wait for
@@ -159,5 +161,109 @@ class VerificationPage extends OwncloudPage {
 			__METHOD__ . ' enrolment secret not found on the verification page'
 		);
 		return \trim($secret->getText());
+	}
+
+	/**
+	 * Returns the computed "user-select" of the enrolment secret.
+	 *
+	 * The login page sets "user-select: none" on both "#body-login p.info" and
+	 * ".grouptop", and the secret sits inside both, so without the app's own
+	 * stylesheet it cannot be selected - and therefore cannot be copied into a
+	 * TOTP app.
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function getEnrolmentSecretUserSelect(): string {
+		$secret = $this->waitTillElementIsNotNull($this->enrolmentSecretXpath);
+		$this->assertElementNotNull(
+			$secret,
+			__METHOD__ . ' enrolment secret not found on the verification page'
+		);
+		// The element is looked up by id rather than reusing $secret because only a
+		// computed style answers the question, and that needs script evaluation. The
+		// prefixed property is read as well, because the browser the CI job drives is
+		// old enough to expose only "-webkit-user-select".
+		$userSelect = $this->getSession()->evaluateScript(
+			'return (function (el) {' .
+			' if (el === null) { return null; }' .
+			' var style = window.getComputedStyle(el);' .
+			' return style.getPropertyValue("user-select")' .
+			' || style.getPropertyValue("-webkit-user-select");' .
+			'})(document.getElementById("' . $this->enrolmentSecretId . '"));'
+		);
+		// only reachable if the xpath above and the id drift apart - reported here so
+		// that the caller sees the cause instead of comparing against a stand-in value
+		if ($userSelect === null) {
+			throw new \Exception(
+				__METHOD__ .
+				" no element with id $this->enrolmentSecretId on the verification page"
+			);
+		}
+		return $userSelect;
+	}
+
+	/**
+	 * Clicks the button that copies the enrolment secret to the clipboard.
+	 *
+	 * @return void
+	 */
+	public function copyEnrolmentSecret(): void {
+		// visibility, not mere presence: the button is rendered with the "hidden"
+		// attribute and only revealed by challenge.js on DOMContentLoaded, so waiting
+		// for the node alone would race the script and click a hidden element
+		$this->waitTillXpathIsVisible($this->enrolmentCopyButtonXpath)->click();
+	}
+
+	/**
+	 * Replaces navigator.clipboard with a stub that records what it was asked to write.
+	 *
+	 * The browser the acceptance tests drive is reached over plain HTTP, which is not a
+	 * secure context, so navigator.clipboard does not exist there and the copy path would
+	 * never run. challenge.js only looks the API up when the button is clicked, so
+	 * installing the stub after the page has loaded is enough. This keeps the assertion
+	 * deterministic and needs neither HTTPS nor a clipboard permission.
+	 *
+	 * executeScript, not evaluateScript: the latter prepends "return " to a script that
+	 * does not already start with it, which would make everything after the first
+	 * statement here unreachable and leave the stub uninstalled.
+	 *
+	 * @return void
+	 */
+	public function stubClipboard(): void {
+		$this->getSession()->executeScript(
+			'window.totpClipboardWrites = [];' .
+			' Object.defineProperty(window.navigator, "clipboard", {' .
+			' configurable: true,' .
+			' value: {' .
+			' writeText: function (text) {' .
+			' window.totpClipboardWrites.push(text);' .
+			' return Promise.resolve();' .
+			' }' .
+			' }' .
+			' });'
+		);
+	}
+
+	/**
+	 * Returns everything the stubbed clipboard was asked to write, in order.
+	 *
+	 * @return array
+	 */
+	public function getStubbedClipboardWrites(): array {
+		return $this->getSession()->evaluateScript(
+			'return window.totpClipboardWrites || [];'
+		);
+	}
+
+	/**
+	 * Returns the text the browser currently has selected.
+	 *
+	 * @return string
+	 */
+	public function getSelectedText(): string {
+		return \trim(
+			$this->getSession()->evaluateScript('return window.getSelection().toString();')
+		);
 	}
 }

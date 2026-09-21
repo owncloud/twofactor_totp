@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - xxxx-xx-xx
 
+### Fixed
+- [#345](https://github.com/owncloud/twofactor_totp/pull/345) - fix: allow the TOTP secret on the challenge page to be selected and copied
+
+  The login page sets `user-select: none` on both `#body-login p.info` and `.grouptop`,
+  and the enrolment secret introduced in 0.10.2 sits inside both, so it inherited the
+  rule and could not be selected at all. Users who cannot scan the QR code had to
+  transcribe the key by hand. The secret is now selectable - a single click selects the
+  whole key - and a Copy button next to it copies the key wherever the browser grants
+  access to the clipboard. Where it does not, or where it refuses the write, the button
+  selects the key so that Ctrl+C copies it.
+
 
 ## [0.10.2] - 2026-07-29
 
