@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "Не е потвърдено",
     "Time-based One-time Password" : "Еднократна парола, базирана на време",
     "Authenticate with a TOTP app" : "Удостоверяване с приложението TOTP",
+    "Copy" : "Копиране",
     "TOTP Second-factor Auth" : "TOTP Втори-фактор Auth"
 },
 "nplurals=2; plural=(n != 1);");

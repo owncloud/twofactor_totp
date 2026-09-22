@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "ยังไม่ได้ยืนยัน",
     "Time-based One-time Password" : "รหัสผ่านแบบใช้ครั้งเดียว",
     "Authenticate with a TOTP app" : "ตรวจสอบสิทธิ์ด้วยแอปฯ TOTP",
+    "Copy" : "คัดลอก",
     "TOTP Second-factor Auth" : "TOTP การยืนยันสองขั้นตอน"
 },
 "nplurals=1; plural=0;");

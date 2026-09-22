@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "تم التحقق من الصحة",
     "Not verified" : "لم يتم التحقق من الصحة",
     "Authenticate with a TOTP app" : "المصادقة باستخدام تطبيق TOTP",
+    "Copy" : "نسخ",
     "TOTP Second-factor Auth" : "مصادقة العامل الثاني عبر TOTP"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

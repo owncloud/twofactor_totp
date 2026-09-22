@@ -8,6 +8,7 @@
     "Verified" : "Vahvistettu",
     "Not verified" : "Ei vahvistettu",
     "Authenticate with a TOTP app" : "Tunnistaudu TOTP-sovelluksella",
+    "Copy" : "Kopioi",
     "TOTP Second-factor Auth" : "Aikaperusteisen kertasalasanan (TOTP) kaksivaiheinen tunnistautuminen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

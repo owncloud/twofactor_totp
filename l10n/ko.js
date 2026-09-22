@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "확인되지 않음",
     "Time-based One-time Password" : "시간 기반 일회용 암호",
     "Authenticate with a TOTP app" : "TOTP 앱으로 인증",
+    "Copy" : "복사",
     "TOTP Second-factor Auth" : "TOTP 2단계 인증"
 },
 "nplurals=1; plural=0;");

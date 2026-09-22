@@ -12,6 +12,7 @@ OC.L10N.register(
     "Time-based One-time Password" : "Op tijd gebaseerd eenmalig wachtwoord",
     "Authenticate with a TOTP app" : "Authenticeren met een TOTP app",
     "Scan the QR code below with your TOTP app and enter the code" : "Scan onderstaande QR-code met je TOTP-app en voer de code in",
+    "Copy" : "Kopieer",
     "TOTP Second-factor Auth" : "TOTP tweede factor Auth"
 },
 "nplurals=2; plural=(n != 1);");

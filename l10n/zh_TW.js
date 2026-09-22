@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "未驗證",
     "Time-based One-time Password" : "基于时间的一次性密码",
     "Authenticate with a TOTP app" : "使用與TOTP軟體進行身份驗證",
+    "Copy" : "複製",
     "TOTP Second-factor Auth" : "TOTP二級驗證"
 },
 "nplurals=1; plural=0;");

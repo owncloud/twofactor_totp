@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Egiaztatua",
     "Not verified" : "Egiaztatu gabea",
     "Authenticate with a TOTP app" : "Egiaztatu TOTP aplikazioarekin",
+    "Copy" : "Kopiatu",
     "TOTP Second-factor Auth" : "TOTP Bigarren-faktore Autentifikazioa"
 },
 "nplurals=2; plural=(n != 1);");

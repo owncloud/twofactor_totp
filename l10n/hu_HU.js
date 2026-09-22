@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Ellenőrzött",
     "Not verified" : "Nem ellenőrzött",
     "Authenticate with a TOTP app" : "Hitelesítés TOTP alkalmazással",
+    "Copy" : "Másolás",
     "TOTP Second-factor Auth" : "TOTP kétlépcsős hitelesítés"
 },
 "nplurals=2; plural=(n != 1);");

@@ -3,8 +3,6 @@ OC.L10N.register(
     {
     "Activate TOTP" : "TOTP (zeitgesteuertes Einmalpasswort) aktivieren",
     "This is your new TOTP secret:" : "Dies ist Ihr neuer TOTP-Schlüssel:",
-    "Copy" : "Kopieren",
-    "Copied" : "Kopiert",
     "Scan this QR code with your TOTP app" : "Scannen Sie diesen QR-Code mit Ihrer TOTP-App",
     "To enable second-factor verify authentication code below." : "Zur Aktivierung des zweiten Faktors, bestätige den Authentifizierungscode unten.",
     "Authentication code" : "Authentifizierungscode",
@@ -14,6 +12,8 @@ OC.L10N.register(
     "Time-based One-time Password" : "Zeitgesteuertes Einmalpasswort",
     "Authenticate with a TOTP app" : "Mit einer TOTP-App (zeitgesteuertes Einmalpasswort) authentisieren",
     "Scan the QR code below with your TOTP app and enter the code" : "Scannen Sie den QR-Code unten mit Ihrer TOTP-App und geben Sie den Code ein.",
+    "Copied" : "Kopiert",
+    "Copy" : "Kopieren",
     "TOTP Second-factor Auth" : "TOTP-Zweifaktorauthentifizierung"
 },
 "nplurals=2; plural=(n != 1);");

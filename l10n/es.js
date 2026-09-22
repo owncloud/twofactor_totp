@@ -12,6 +12,7 @@ OC.L10N.register(
     "Time-based One-time Password" : "Contraseña de un solo uso basada en el tiempo",
     "Authenticate with a TOTP app" : "Validar con la aplicación TOTP",
     "Scan the QR code below with your TOTP app and enter the code" : "Escanee el código QR que encontrará debajo con su app TOTP e introduzca el código",
+    "Copy" : "Copiar",
     "TOTP Second-factor Auth" : "Autorización de 2 factores TOTP"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

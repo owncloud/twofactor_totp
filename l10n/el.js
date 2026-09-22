@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "Δεν επαληθεύτηκε",
     "Time-based One-time Password" : "Μοναδικό συνθηματικό βάσει χρόνου",
     "Authenticate with a TOTP app" : "Πιστοποίηση με την εφαρμογή ΤΟΤΡ",
+    "Copy" : "Αντιγραφή",
     "TOTP Second-factor Auth" : "TOTP Δευτερεύον - παράγοντας Auth"
 },
 "nplurals=2; plural=(n != 1);");

@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Sannreynt",
     "Not verified" : "Ekki sannreynt",
     "Authenticate with a TOTP app" : "Auðkenna með TOTP-forriti",
+    "Copy" : "Afrita",
     "TOTP Second-factor Auth" : "TOTP tveggja-skrefa auðkenning"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

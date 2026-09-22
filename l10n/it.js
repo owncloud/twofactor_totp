@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Verificato",
     "Not verified" : "Non verificato",
     "Authenticate with a TOTP app" : "Autenticati con un'applicazione TOTP",
+    "Copy" : "Copia",
     "TOTP Second-factor Auth" : "Autenticazione con secondo fattore TOTP"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
