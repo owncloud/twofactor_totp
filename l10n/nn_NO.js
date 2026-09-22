@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Verifisert",
     "Not verified" : "Ikkje verifisert",
     "Authenticate with a TOTP app" : "Autentiser med to-faktor program",
+    "Copy" : "Kopier",
     "TOTP Second-factor Auth" : "To-faktor autentisering"
 },
 "nplurals=2; plural=(n != 1);");

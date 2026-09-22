@@ -12,6 +12,7 @@ OC.L10N.register(
     "Time-based One-time Password" : "ລະຫັດຜ່ານຄັ້ງດຽວແບບກຳນົດເວລາ",
     "Authenticate with a TOTP app" : "ຢືນຢັນຕົວຕົນດ້ວຍແອັບ TOTP",
     "Scan the QR code below with your TOTP app and enter the code" : "ສະແກນລະຫັດ QR ດ້ານລຸ່ມດ້ວຍແອັບ TOTP ຂອງເຈົ້າ ແລະ ປ້ອນລະຫັດ",
+    "Copy" : "ສຳເນົາ",
     "TOTP Second-factor Auth" : "ການຢືນຢັນຕົວຕົນສອງຂັ້ນຕອນແບບ TOTP"
 },
 "nplurals=1; plural=0;");

@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "Non vérifié",
     "Time-based One-time Password" : "Mot de passe à usage unique basé sur le temps",
     "Authenticate with a TOTP app" : "Authentification avec votre application TOTP",
+    "Copy" : "Copier",
     "TOTP Second-factor Auth" : "TOTP Deuxième facteur d'authentification"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

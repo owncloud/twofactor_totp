@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Geverifieer",
     "Not verified" : "Nie geverifieer",
     "Authenticate with a TOTP app" : "Verifieer met ’n TEW-toep",
+    "Copy" : "Kopieer",
     "TOTP Second-factor Auth" : "TEW Tweedefaktorverifiëring"
 },
 "nplurals=2; plural=(n != 1);");

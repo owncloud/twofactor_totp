@@ -8,6 +8,7 @@
     "Verified" : "Verificado",
     "Not verified" : "Non verificado",
     "Authenticate with a TOTP app" : "Autenticar con unha app TOTP",
+    "Copy" : "Copiar",
     "TOTP Second-factor Auth" : "Segundo factor de Autorización TOTP"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

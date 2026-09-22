@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Vahvistettu",
     "Not verified" : "Ei vahvistettu",
     "Authenticate with a TOTP app" : "Tunnistaudu TOTP-sovelluksella",
+    "Copy" : "Kopioi",
     "TOTP Second-factor Auth" : "Aikaperusteisen kertasalasanan (TOTP) kaksivaiheinen tunnistautuminen"
 },
 "nplurals=2; plural=(n != 1);");

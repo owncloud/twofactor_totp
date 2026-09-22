@@ -10,6 +10,7 @@ OC.L10N.register(
     "Verified" : "Ověřeno",
     "Not verified" : "Neověřeno",
     "Authenticate with a TOTP app" : "Přihlaste se pomocí TOTP aplikace",
+    "Copy" : "Kopie",
     "TOTP Second-factor Auth" : "TOTP ověření druhým faktorem"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

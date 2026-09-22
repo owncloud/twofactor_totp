@@ -11,6 +11,7 @@ OC.L10N.register(
     "Not verified" : "未確認",
     "Time-based One-time Password" : "時間ベースのワンタイムパスワード",
     "Authenticate with a TOTP app" : "TOTPアプリで認証する",
+    "Copy" : "コピー",
     "TOTP Second-factor Auth" : "TOTP 2要素認証"
 },
 "nplurals=1; plural=0;");
