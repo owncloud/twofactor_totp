@@ -9,6 +9,8 @@
     "Not verified" : "Не е потвърдено",
     "Time-based One-time Password" : "Еднократна парола, базирана на време",
     "Authenticate with a TOTP app" : "Удостоверяване с приложението TOTP",
+    "Scan the QR code below with your TOTP app and enter the code" : "Сканирайте QR кода по-долу с вашето TOTP приложение и въведете кода",
+    "Copied" : "Копирано",
     "Copy" : "Копиране",
     "TOTP Second-factor Auth" : "TOTP Втори-фактор Auth"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
